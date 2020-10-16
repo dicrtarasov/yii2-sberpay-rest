@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 15:08:52
+ * @version 16.10.20 15:26:02
  */
 
 declare(strict_types = 1);
@@ -14,6 +14,8 @@ use dicr\sberbank\SberbankModule;
 use PHPUnit\Framework\TestCase;
 use Yii;
 use yii\base\Exception;
+
+use function time;
 
 /**
  * Class SberbankModuleTest
@@ -43,7 +45,7 @@ class SberbankModuleTest extends TestCase
         $req = self::module()->registerPaymentRequest([
             'orderNumber' => $orderNumber,
             //'amount' => $amount, автовычисление
-            'returnUrl' => 'https://ekoyar.ru',
+            'returnUrl' => 'https://test.ru',
             'orderBundle' => [
                 'cartItems' => [
                     'items' => [
