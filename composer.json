@@ -22,7 +22,7 @@
         "yiisoft/yii2": "~2.0",
         "yiisoft/yii2-httpclient": "~2.0",
         "dicr/yii2-helper": "~3.7",
-        "dicr/yii2-validate": "~2.1"
+        "dicr/yii2-validate": "~2.2"
     },
     "autoload": {
         "psr-4": {

@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 10:37:25
+ * @version 16.10.20 14:58:17
  */
 
 declare(strict_types = 1);
@@ -13,12 +13,9 @@ use dicr\sberbank\entity\AppInfo;
 use dicr\sberbank\entity\Item;
 use dicr\sberbank\entity\OfdParams;
 use dicr\sberbank\entity\OrderBundle;
-use dicr\validate\ValidateException;
-use Yii;
-use yii\base\Exception;
-use yii\httpclient\Client;
+use dicr\validate\EntityValidator;
+use yii\helpers\Json;
 
-use function array_merge;
 use function array_reduce;
 use function round;
 use function str_replace;
@@ -235,9 +232,11 @@ class RegisterPaymentRequest extends SberbankRequest
      */
     public function attributeEntities() : array
     {
-        return array_merge(parent::attributeEntities(), [
+        return [
+            'additionalOfdParams' => OfdParams::class,
+            'orderBundle' => OrderBundle::class,
             'app' => AppInfo::class
-        ]);
+        ];
     }
 
     /**
@@ -245,9 +244,10 @@ class RegisterPaymentRequest extends SberbankRequest
      */
     public function rules() : array
     {
-        return array_merge(parent::rules(), [
+        return [
             ['orderNumber', 'trim'],
             ['orderNumber', 'required'],
+            ['orderNumber', 'string', 'max' => 32],
 
             ['currency', 'default'],
             ['currency', 'integer', 'min' => 1],
@@ -255,16 +255,18 @@ class RegisterPaymentRequest extends SberbankRequest
 
             ['returnUrl', 'required'],
             ['returnUrl', 'url'],
+            ['returnUrl', 'string', 'max' => 512],
 
             ['failUrl', 'default'],
             ['failUrl', 'url'],
+            ['failUrl', 'string', 'max' => 512],
 
             ['description', 'trim'],
             ['description', 'default'],
             ['description', 'filter', 'filter' => static function (string $description) : string {
                 return str_replace(['%', '+', "\r", "\n"], ['_', '_', ' ', ' '], $description);
             }, 'skipOnEmpty' => true],
-            ['description', 'string', 'max' => 24],
+            ['description', 'string', 'max' => 512],
 
             ['language', 'default'],
             ['language', 'string', 'length' => 2],
@@ -289,32 +291,15 @@ class RegisterPaymentRequest extends SberbankRequest
             ['bindingId', 'trim'],
             ['bindingId', 'default'],
 
-            ['additionalOfdParams', function (string $attribute) {
-                if (empty($this->additionalOfdParams)) {
-                    $this->additionalOfdParams = null;
-                } elseif (! $this->additionalOfdParams instanceof OfdParams) {
-                    $this->addError($attribute);
-                } elseif (! $this->additionalOfdParams->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->additionalOfdParams))->getMessage());
-                }
-            }],
+            ['additionalOfdParams', 'default'],
+            ['additionalOfdParams', EntityValidator::class],
 
-            ['orderBundle', function (string $attribute) {
-                if (empty($this->orderBundle)) {
-                    $this->orderBundle = null;
-                } elseif (! $this->orderBundle instanceof OrderBundle) {
-                    $this->addError($attribute);
-                } elseif (! $this->orderBundle->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->orderBundle))->getMessage());
-                }
-            }],
+            ['orderBundle', 'default'],
+            ['orderBundle', EntityValidator::class],
 
             // проверяем после валидации orderBundle
-            ['amount', 'default', 'value' => function () {
-                return empty($this->orderBundle->cartItems->items) ? null :
-                    array_reduce($this->orderBundle->cartItems->items, static function (int $amount, Item $item) : int {
-                        return $amount + (int)round($item->price * $item->quantity->value);
-                    }, 0);
+            ['amount', 'default', 'value' => function () : ?int {
+                return $this->getAmount();
             }],
             ['amount', 'required'],
             ['amount', 'number', 'min' => 0.01],
@@ -341,22 +326,54 @@ class RegisterPaymentRequest extends SberbankRequest
             ['app2app', 'boolean'],
             ['app2app', 'filter', 'filter' => 'boolval', 'skipOnEmpty' => true],
 
-            ['app', function (string $attribute) {
-                if (empty($this->app)) {
-                    if ($this->app2app) {
-                        $this->addError($attribute, 'требуется при app2app');
-                    }
-                } elseif (! $this->app instanceof AppInfo) {
-                    $this->addError($attribute);
-                } elseif (! $this->app->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->app))->getMessage());
-                }
-            }],
+            ['app', 'default'],
+            ['app', EntityValidator::class, 'skipOnEmpty' => ! $this->app],
 
             ['back2app', 'default'],
             ['back2app', 'boolean'],
             ['back2app', 'filter', 'filter' => 'boolval', 'skipOnEmpty' => true],
-        ]);
+        ];
+    }
+
+    /**
+     * Рассчитывает сумму.
+     *
+     * @return ?int
+     */
+    public function getAmount() : ?int
+    {
+        if (! isset($this->orderBundle->cartItems->items)) {
+            return null;
+        }
+
+        return array_reduce($this->orderBundle->cartItems->items, static function (int $amount, Item $item) : int {
+            return $amount + (int)round($item->price * $item->quantity->value);
+        }, 0);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getJson() : array
+    {
+        // извращения Сбербанк потому что там программисты дебилы
+        return array_filter(array_merge(parent::getJson(), [
+            'additionalOfdParams' => isset($this->additionalOfdParams) ?
+                Json::encode($this->additionalOfdParams->json) : null,
+            'orderBundle' => isset($this->orderNumber) ?
+                Json::encode($this->orderBundle->json) : null,
+            'app' => isset($this->app) ? Json::encode($this->app->json) : null
+        ]), static function ($val) : bool {
+            return $val !== null && $val !== '' && $val !== [];
+        });
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public static function url() : string
+    {
+        return 'register.do';
     }
 
     /**
@@ -365,31 +382,8 @@ class RegisterPaymentRequest extends SberbankRequest
      */
     public function send() : RegisterPaymentResponse
     {
-        if (! $this->validate()) {
-            throw new ValidateException($this);
-        }
-
-        $req = $this->module->httpClient->post('/payment/rest/register.do', $this->json);
-        $req->format = Client::FORMAT_JSON;
-
-        Yii::debug('Запрос: ' . $req->toString(), __METHOD__);
-        $res = $req->send();
-        Yii::debug('Ответ: ' . $res->toString());
-
-        if (! $res->isOk) {
-            throw new Exception('HTTP-error: ' . $res->statusCode);
-        }
-
-        $res->format = Client::FORMAT_JSON;
-
-        $response = new RegisterPaymentResponse([
-            'json' => $res->data
+        return new RegisterPaymentResponse([
+            'json' => parent::send()
         ]);
-
-        if (! empty($response->errorCode)) {
-            throw new Exception($response->errorMessage ?: ('Ошибка: ' . $response->errorCode));
-        }
-
-        return $response;
     }
 }

@@ -3,16 +3,11 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 09:48:12
+ * @version 16.10.20 14:58:56
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank;
-
-use dicr\validate\ValidateException;
-use Yii;
-use yii\base\Exception;
-use yii\httpclient\Client;
 
 /**
  * Запрос состояния платежа.
@@ -59,36 +54,21 @@ class OrderStatusRequest extends SberbankRequest
     }
 
     /**
+     * @return string
+     */
+    public static function url() : string
+    {
+        return 'getOrderStatusExtended.do';
+    }
+
+    /**
      * @inheritDoc
      * @return OrderStatusResponse
      */
     public function send() : OrderStatusResponse
     {
-        if (! $this->validate()) {
-            throw new ValidateException($this);
-        }
-
-        $req = $this->module->httpClient->post('/payment/rest/getOrderStatusExtended.do', $this->json);
-        $req->format = Client::FORMAT_JSON;
-
-        Yii::debug('Запрос: ' . $req->toString(), __METHOD__);
-        $res = $req->send();
-        Yii::debug('Ответ: ' . $res->toString(), __METHOD__);
-
-        if (! $res->isOk) {
-            throw new Exception('HTTP-error: ' . $res->statusCode);
-        }
-
-        $res->format = Client::FORMAT_JSON;
-
-        $response = new OrderStatusResponse([
-            'json' => $res->data
+        return new OrderStatusResponse([
+            'json' => parent::send()
         ]);
-
-        if (! empty($response->errorCode) && $response->errorCode !== 7) {
-            throw new Exception($response->errorMessage ?: 'Ошибка: ' . $response->errorCode);
-        }
-
-        return $response;
     }
 }

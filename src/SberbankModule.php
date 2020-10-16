@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 09:56:08
+ * @version 16.10.20 14:35:42
  */
 
 declare(strict_types = 1);
@@ -30,10 +30,10 @@ class SberbankModule extends Module
      * @var string URL API для тестов
      * @link https://securepayments.sberbank.ru/wiki/doku.php/test_cards тестовые карты
      */
-    public const URL_TEST = 'https://3dsec.sberbank.ru';
+    public const URL_TEST = 'https://3dsec.sberbank.ru/payment/rest';
 
     /** @var string URL API */
-    public const URL_API = 'https://securepayments.sberbank.ru';
+    public const URL_API = 'https://securepayments.sberbank.ru/payment/rest';
 
     /** @var string API URL */
     public $url = self::URL_API;
@@ -63,6 +63,16 @@ class SberbankModule extends Module
 
         if (empty($this->url)) {
             throw new InvalidConfigException('url');
+        }
+
+        if (empty($this->token)) {
+            if (empty($this->userName)) {
+                throw new InvalidConfigException('userName');
+            }
+
+            if (empty($this->password)) {
+                throw new InvalidConfigException('password');
+            }
         }
     }
 

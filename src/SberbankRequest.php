@@ -3,37 +3,22 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:35:08
+ * @version 16.10.20 14:58:17
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank;
 
+use dicr\validate\ValidateException;
+use Yii;
 use yii\base\Exception;
+use yii\httpclient\Client;
 
 /**
  * Абстрактный запрос.
  */
 abstract class SberbankRequest extends SberbankEntity
 {
-    /**
-     * @var ?string Значение, которое используется для аутентификации продавца при отправке запросов в платёжный шлюз.
-     * При передаче этого параметра параметры userName и password передавать не нужно.
-     */
-    public $token;
-
-    /**
-     * @var ?string Логин служебной учётной записи продавца. При передаче логина и пароля для аутентификации
-     * в платёжном шлюзе параметр token передавать не нужно.
-     */
-    public $userName;
-
-    /**
-     * @var ?string Пароль служебной учётной записи продавца.
-     * При передаче логина и пароля для аутентификации в платёжном шлюзе параметр token передавать не нужно.
-     */
-    public $password;
-
     /** @var SberbankModule */
     protected $module;
 
@@ -51,34 +36,49 @@ abstract class SberbankRequest extends SberbankEntity
     }
 
     /**
-     * @inheritDoc
+     * Адрес запроса.
+     *
+     * @return string
      */
-    public function rules() : array
-    {
-        return [
-            ['token', 'trim'],
-            ['token', 'default', 'value' => $this->module->token],
-
-            ['userName', 'trim'],
-            ['userName', 'default', 'value' => $this->module->userName],
-            ['userName', 'required', 'when' => function () : bool {
-                return empty($this->token);
-            }],
-
-            ['password', 'trim'],
-            ['password', 'default', 'value' => $this->module->password],
-            ['password', 'required', 'when' => function () : bool {
-                return empty($this->token);
-            }]
-        ];
-    }
+    abstract public static function url() : string;
 
     /**
      * Отправляет запрос.
      *
-     * @return SberbankResponse
+     * @return array json data
      * @throws Exception
-     * @noinspection PhpMissingReturnTypeInspection, ReturnTypeCanBeDeclaredInspection
+     * @noinspection PhpMissingReturnTypeInspection
+     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    abstract public function send();
+    public function send()
+    {
+        if (! $this->validate()) {
+            throw new ValidateException($this);
+        }
+
+        $data = array_filter(array_merge([
+            'token' => $this->module->token,
+            'userName' => $this->module->userName,
+            'password' => $this->module->password
+        ], $this->json), static function ($val) : bool {
+            return $val !== null && $val !== '';
+        });
+
+        $req = $this->module->httpClient->post(static::url(), $data);
+
+        Yii::debug('Запрос: ' . $req->toString(), __METHOD__);
+        $res = $req->send();
+        Yii::debug('Ответ: ' . $res->toString());
+
+        if (! $res->isOk) {
+            throw new Exception('HTTP-error: ' . $res->statusCode);
+        }
+
+        $res->format = Client::FORMAT_JSON;
+        if (! empty($res->data['errorCode'])) {
+            throw new Exception($res->data['errorMessage'] ?: ('Ошибка: ' . $res->data['errorCode']));
+        }
+
+        return $res->data;
+    }
 }

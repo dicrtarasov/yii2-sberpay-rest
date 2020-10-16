@@ -4,11 +4,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 12:49:44
+ * @version 16.10.20 13:50:27
  */
 declare(strict_types = 1);
 
 /** среда разработки */
+
+use yii\log\Dispatcher;
+
 defined('YII_ENV') || define('YII_ENV', 'dev');
 
 /** режим отладки */
@@ -26,8 +29,12 @@ new yii\console\Application([
             'hostInfo' => 'https://localhost'
         ],
         'log' => [
+            'class' => Dispatcher::class,
             'targets' => [
-                ['class' => yii\log\FileTarget::class, 'levels' => ['error', 'warning', 'info', 'trace']]
+                [
+                    'class' => yii\log\FileTarget::class,
+                    'levels' => ['error', 'warning', 'info', 'trace']
+                ]
             ]
         ]
     ],
@@ -38,5 +45,6 @@ new yii\console\Application([
             'userName' => 'ekoyar-api', // тестовый логин
             'password' => 'ekoyar' // тестовый пароль
         ]
-    ]
+    ],
+    'bootstrap' => ['log']
 ]);

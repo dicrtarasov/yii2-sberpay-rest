@@ -3,14 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:18:57
+ * @version 16.10.20 13:07:51
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\ValidateException;
+use dicr\validate\EntityValidator;
 
 /**
  * Информация о заказе.
@@ -47,25 +47,11 @@ class OrderBundle extends SberbankEntity
             ['orderCreationDate', 'default'],
             ['orderCreationDate', 'date', 'format' => 'php:Y-m-d\TH:i:s'],
 
-            ['customerDetails', function (string $attribute) {
-                if (empty($this->customerDetails)) {
-                    $this->customerDetails = null;
-                } elseif (! $this->customerDetails instanceof CustomerDetails) {
-                    $this->addError($attribute);
-                } elseif (! $this->customerDetails->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->customerDetails))->getMessage());
-                }
-            }],
+            ['customerDetails', 'default'],
+            ['customerDetails', EntityValidator::class],
 
-            ['cartItems', function (string $attribute) {
-                if (empty($this->cartItems)) {
-                    $this->cartItems = null;
-                } elseif (! $this->cartItems instanceof CartItems) {
-                    $this->addError($attribute);
-                } elseif (! $this->cartItems->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->cartItems))->getMessage());
-                }
-            }]
+            ['cartItems', 'default'],
+            ['cartItems', EntityValidator::class],
         ];
     }
 }

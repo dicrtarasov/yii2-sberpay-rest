@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:09:25
+ * @version 16.10.20 12:58:46
  */
 
 declare(strict_types = 1);
@@ -11,8 +11,8 @@ namespace dicr\sberbank\entity;
 
 use dicr\sberbank\PhoneValidator;
 use dicr\sberbank\SberbankEntity;
+use dicr\validate\EntityValidator;
 use dicr\validate\InnValidator;
-use dicr\validate\ValidateException;
 
 /**
  * Class CustomerDetails
@@ -97,15 +97,8 @@ class CustomerDetails extends SberbankEntity
             ['inn', 'default'],
             ['inn', InnValidator::class, 'skipOnEmpty' => true],
 
-            ['deliveryInfo', function (string $attribute) {
-                if (empty($this->deliveryInfo)) {
-                    $this->deliveryInfo = null;
-                } elseif (! $this->deliveryInfo instanceof DeliveryInfo) {
-                    $this->addError($attribute);
-                } elseif (! $this->deliveryInfo->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->deliveryInfo))->getMessage());
-                }
-            }]
+            ['deliveryInfo', 'default'],
+            ['deliveryInfo', EntityValidator::class],
         ];
     }
 }

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "227bea95abe654947da35d3ebb092bde",
+    "content-hash": "47ee3a0e4cdbcc8990024b8bd3edac48",
     "packages": [
         {
             "name": "bower-asset/inputmask",
@@ -206,19 +206,20 @@
         },
         {
             "name": "dicr/yii2-validate",
-            "version": "2.1.6",
+            "version": "2.2.0",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/dicr/yii2-validate.git",
-                "reference": "b11c8e4b83e7790650be1e1b998537647e3c24b6"
+                "reference": "d99446a94eb2f0fc7b0c8e36e67403b79e9b94f5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-validate/repository/archive.zip?sha=b11c8e4b83e7790650be1e1b998537647e3c24b6",
-                "reference": "b11c8e4b83e7790650be1e1b998537647e3c24b6",
+                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-validate/repository/archive.zip?sha=d99446a94eb2f0fc7b0c8e36e67403b79e9b94f5",
+                "reference": "d99446a94eb2f0fc7b0c8e36e67403b79e9b94f5",
                 "shasum": ""
             },
             "require": {
+                "dicr/yii2-helper": "~3.7",
                 "php": "~7.2",
                 "yiisoft/yii2": "~2.0"
             },
@@ -258,7 +259,7 @@
                 "source": "https://gitlab.com/dicr/yii2-validate.git",
                 "issues": "https://gitlab.com/api/v4/projects/9711109/issues"
             },
-            "time": "2020-10-15T14:58:44+03:00"
+            "time": "2020-10-16T12:50:13+03:00"
         },
         {
             "name": "ezyang/htmlpurifier",

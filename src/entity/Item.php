@@ -3,16 +3,16 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 10:14:20
+ * @version 16.10.20 13:24:37
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\ValidateException;
+use dicr\validate\EntityValidator;
 
-use function is_array;
+use function round;
 
 /**
  * Товар.
@@ -122,28 +122,11 @@ class Item extends SberbankEntity
             ['name', 'trim'],
             ['name', 'required'],
 
-            ['details', function (string $attribute) {
-                if (empty($this->details)) {
-                    $this->details = null;
-                } elseif (! $this->details instanceof ItemDetails) {
-                    $this->addError($attribute);
-                } elseif (! $this->details->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->details))->getMessage());
-                }
-            }],
+            ['details', 'default'],
+            ['details', EntityValidator::class],
 
-            ['quantity', function (string $attribute) {
-                if (! $this->quantity instanceof Quantity) {
-                    $this->addError($attribute);
-                } elseif (! $this->quantity->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->quantity))->getMessage());
-                }
-            }],
-
-            ['amount', 'default', 'value' => $this->price && $this->quantity ?
-                (int)round($this->price * $this->quantity->value) : null],
-            ['amount', 'integer', 'min' => 1],
-            ['amount', 'filter', 'filter' => 'intval', 'skipOnEmpty' => true],
+            ['quantity', 'required'],
+            ['quantity', EntityValidator::class, 'skipOnEmpty' => false],
 
             ['currency', 'default'],
             ['currency', 'integer', 'min' => 1],
@@ -152,53 +135,39 @@ class Item extends SberbankEntity
             ['code', 'trim'],
             ['code', 'required'],
 
-            ['discount', function (string $attribute) {
-                if (empty($this->discount)) {
-                    $this->discount = null;
-                } elseif (! $this->discount instanceof Discount) {
-                    $this->addError($attribute);
-                } elseif (! $this->discount->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->discount))->getMessage());
-                }
-            }],
+            ['discount', 'default'],
+            ['discount', EntityValidator::class],
 
-            ['agentInterest', function (string $attribute) {
-                if (empty($this->agentInterest)) {
-                    $this->agentInterest = null;
-                } elseif (! $this->agentInterest instanceof AgentInterest) {
-                    $this->addError($attribute);
-                } elseif (! $this->agentInterest->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->agentInterest))->getMessage());
-                }
-            }],
+            ['agentInterest', 'default'],
+            ['agentInterest', EntityValidator::class],
 
-            ['tax', function (string $attribute) {
-                if (empty($this->tax)) {
-                    $this->tax = null;
-                } elseif (! $this->tax instanceof Tax) {
-                    $this->addError($attribute);
-                } elseif (! $this->tax->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->tax))->getMessage());
-                }
-            }],
+            ['tax', 'default'],
+            ['tax', EntityValidator::class],
 
             ['price', 'default'],
             ['price', 'integer', 'min' => 0],
             ['price', 'filter', 'filter' => 'intval', 'skipOnEmpty' => true],
 
-            ['itemAttributes', function (string $attribute) {
-                if (empty($this->itemAttributes)) {
-                    $this->itemAttributes = null;
-                } elseif (is_array($this->itemAttributes)) {
-                    foreach ($this->itemAttributes as $attr) {
-                        if (! $attr instanceof ItemAttribute) {
-                            $this->addError($attribute, 'должен быть ItemAttribute');
-                        } elseif (! $attr->validate()) {
-                            $this->addError($attribute, (new ValidateException($attr))->getMessage());
-                        }
-                    }
-                }
-            }]
+            // проверяем после quantity и price
+            ['amount', 'default', 'value' => function () : ?int {
+                return $this->getAmount();
+            }],
+            ['amount', 'integer', 'min' => 1],
+            ['amount', 'filter', 'filter' => 'intval', 'skipOnEmpty' => true],
+
+            ['itemAttributes', 'default'],
+            ['itemAttributes', EntityValidator::class],
         ];
+    }
+
+    /**
+     * Рассчитывает сумму.
+     *
+     * @return ?int
+     */
+    public function getAmount() : ?int
+    {
+        return isset($this->price, $this->quantity->value) ?
+            (int)round($this->price * $this->quantity->value) : null;
     }
 }

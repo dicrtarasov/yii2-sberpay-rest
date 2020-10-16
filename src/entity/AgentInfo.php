@@ -3,14 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:07:41
+ * @version 16.10.20 15:09:23
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\ValidateException;
+use dicr\validate\EntityValidator;
 
 /**
  * Информация об агенте.
@@ -73,37 +73,8 @@ class AgentInfo extends SberbankEntity
                 self::TYPE_PAY_SUB_AGENT, self::TYPE_ATTORNEY, self::TYPE_BROKER, self::TYPE_OTHER]],
             ['type', 'filter', 'filter' => 'intval'],
 
-            ['paying', function (string $attribute) {
-                if (empty($this->paying)) {
-                    $this->paying = null;
-                } elseif (! $this->paying instanceof PayingAgent) {
-                    $this->addError($attribute);
-                } elseif (! $this->paying->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->paying))->getMessage());
-                }
-            }],
-
-            ['paymentsOperator', 'default'],
-            ['paymentsOperator', function (string $attribute) {
-                if (empty($this->paymentsOperator)) {
-                    $this->paymentsOperator = null;
-                } elseif (! $this->paymentsOperator instanceof PaymentsOperator) {
-                    $this->addError($attribute);
-                } elseif (! $this->paymentsOperator->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->paymentsOperator))->getMessage());
-                }
-            }],
-
-            ['MTOperator', 'default'],
-            ['MTOperator', function (string $attribute) {
-                if (empty($this->MTOperator)) {
-                    $this->MTOperator = null;
-                } elseif (! $this->MTOperator instanceof MTOperator) {
-                    $this->addError($attribute);
-                } elseif (! $this->MTOperator->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->MTOperator))->getMessage());
-                }
-            }]
+            [['paying', 'paymentsOperator', 'MTOperator'], 'default'],
+            [['paying', 'paymentsOperator', 'MTOperator'], EntityValidator::class]
         ];
     }
 }

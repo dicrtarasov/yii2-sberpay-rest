@@ -3,16 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:18:27
+ * @version 16.10.20 13:06:40
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\ValidateException;
-
-use function is_array;
+use dicr\validate\EntityValidator;
 
 /**
  * Дополнительные параметры ОФД.
@@ -65,25 +63,11 @@ class OfdParams extends SberbankEntity
     public function rules() : array
     {
         return [
-            ['agentInfo', function (string $attribute) {
-                if (empty($this->agentInfo)) {
-                    $this->agentInfo = null;
-                } elseif (! $this->agentInfo instanceof AgentInfo) {
-                    $this->addError($attribute);
-                } elseif (! $this->agentInfo->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->agentInfo))->getMessage());
-                }
-            }],
+            ['agentInfo', 'default'],
+            ['agentInfo', EntityValidator::class],
 
-            ['supplierInfo', function (string $attribute) {
-                if (empty($this->supplierInfo)) {
-                    $this->supplierInfo = null;
-                } elseif (! $this->supplierInfo instanceof SupplierInfo) {
-                    $this->addError($attribute);
-                } elseif (! $this->supplierInfo->validate()) {
-                    $this->addError($attribute, (new ValidateException($this->supplierInfo))->getMessage());
-                }
-            }],
+            ['supplierInfo', 'default'],
+            ['supplierInfo', EntityValidator::class],
 
             ['cashier', 'trim'],
             ['cashier', 'default'],
@@ -91,21 +75,8 @@ class OfdParams extends SberbankEntity
             ['additionalCheckProps', 'trim'],
             ['additionalCheckProps', 'default'],
 
-            ['additionalUserProps', function (string $attribute) {
-                if (empty($this->additionalUserProps)) {
-                    $this->additionalUserProps = null;
-                } elseif (is_array($this->additionalUserProps)) {
-                    foreach ($this->additionalUserProps as $prop) {
-                        if (! $prop instanceof UserProps) {
-                            $this->addError($attribute, 'требуется UserProps');
-                        } elseif (! $prop->validate()) {
-                            $this->addError($attribute, (new ValidateException($prop))->getMessage());
-                        }
-                    }
-                } else {
-                    $this->addError($attribute, 'требуется массив');
-                }
-            }]
+            ['additionalUserProps', 'default'],
+            ['additionalUserProps', EntityValidator::class],
         ];
     }
 }
