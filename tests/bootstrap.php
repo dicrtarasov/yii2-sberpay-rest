@@ -4,7 +4,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 13:50:27
+ * @version 16.10.20 15:30:19
  */
 declare(strict_types = 1);
 
@@ -42,8 +42,8 @@ new yii\console\Application([
         'sberbank' => [
             'class' => dicr\sberbank\SberbankModule::class,
             'url' => dicr\sberbank\SberbankModule::URL_TEST,
-            'userName' => 'ekoyar-api', // тестовый логин
-            'password' => 'ekoyar' // тестовый пароль
+            'userName' => 'test-api', // тестовый логин
+            'password' => 'test' // тестовый пароль
         ]
     ],
     'bootstrap' => ['log']
