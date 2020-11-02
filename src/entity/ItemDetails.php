@@ -3,14 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 13:04:58
+ * @version 02.11.20 14:14:11
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
+use dicr\json\EntityValidator;
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\EntityValidator;
 
 /**
  * Дополнительная информация о товаре.
@@ -23,7 +23,7 @@ class ItemDetails extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         return [
             'params' => 'itemDetailsParams'
@@ -33,7 +33,7 @@ class ItemDetails extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return [
             'params' => [ItemDetailsParam::class]

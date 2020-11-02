@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:09:25
+ * @version 02.11.20 14:10:40
  */
 
 declare(strict_types = 1);
@@ -25,7 +25,7 @@ class Discount extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         return [
             'type' => 'discountType',

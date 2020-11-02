@@ -3,14 +3,14 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 15:09:23
+ * @version 02.11.20 14:14:11
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
+use dicr\json\EntityValidator;
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\EntityValidator;
 
 /**
  * Информация об агенте.
@@ -53,7 +53,7 @@ class AgentInfo extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return [
             'paying' => PayingAgent::class,

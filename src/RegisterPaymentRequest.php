@@ -3,17 +3,17 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 14:58:17
+ * @version 02.11.20 14:14:11
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank;
 
+use dicr\json\EntityValidator;
 use dicr\sberbank\entity\AppInfo;
 use dicr\sberbank\entity\Item;
 use dicr\sberbank\entity\OfdParams;
 use dicr\sberbank\entity\OrderBundle;
-use dicr\validate\EntityValidator;
 use yii\helpers\Json;
 
 use function array_reduce;
@@ -230,7 +230,7 @@ class RegisterPaymentRequest extends SberbankRequest
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return [
             'additionalOfdParams' => OfdParams::class,

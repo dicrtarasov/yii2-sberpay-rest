@@ -3,15 +3,15 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 12:58:46
+ * @version 02.11.20 14:14:11
  */
 
 declare(strict_types = 1);
 namespace dicr\sberbank\entity;
 
+use dicr\json\EntityValidator;
 use dicr\sberbank\PhoneValidator;
 use dicr\sberbank\SberbankEntity;
-use dicr\validate\EntityValidator;
 use dicr\validate\InnValidator;
 
 /**
@@ -52,7 +52,7 @@ class CustomerDetails extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public static function attributeFields() : array
     {
         return [
             'deliveryInfo' => 'delivery_info'
@@ -62,7 +62,7 @@ class CustomerDetails extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return [
             'deliveryInfo' => DeliveryInfo::class

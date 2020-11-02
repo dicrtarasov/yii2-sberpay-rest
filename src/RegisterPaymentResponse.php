@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 09:11:28
+ * @version 02.11.20 14:12:32
  */
 
 declare(strict_types = 1);
@@ -42,7 +42,7 @@ class RegisterPaymentResponse extends SberbankResponse
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public static function attributeEntities() : array
     {
         return [
             'externalParams' => ExternalParams::class
