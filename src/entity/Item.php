@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 02.11.20 14:14:11
+ * @version 10.11.20 17:20:02
  */
 
 declare(strict_types = 1);
@@ -83,7 +83,7 @@ class Item extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public static function attributeFields() : array
+    public function attributeFields() : array
     {
         return [
             'details' => 'itemDetails',
@@ -97,7 +97,7 @@ class Item extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public static function attributeEntities() : array
+    public function attributeEntities() : array
     {
         return [
             'details' => ItemDetails::class,

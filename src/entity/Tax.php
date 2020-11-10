@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 02.11.20 14:11:50
+ * @version 10.11.20 17:21:26
  */
 
 declare(strict_types = 1);
@@ -43,7 +43,7 @@ class Tax extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public static function attributeFields() : array
+    public function attributeFields() : array
     {
         return [
             'type' => 'taxType',

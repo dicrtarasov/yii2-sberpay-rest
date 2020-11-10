@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "492f12e5a47d6fb2af4ff56b2d87932d",
+    "content-hash": "3dc8c745e9bddc9b03013c0f9d387018",
     "packages": [
         {
             "name": "bower-asset/inputmask",
             "version": "3.3.11",
             "source": {
                 "type": "git",
-                "url": "git@github.com:RobinHerbots/Inputmask.git",
+                "url": "https://github.com/RobinHerbots/Inputmask.git",
                 "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
@@ -32,7 +32,7 @@
             "version": "3.5.1",
             "source": {
                 "type": "git",
-                "url": "git@github.com:jquery/jquery-dist.git",
+                "url": "https://github.com/jquery/jquery-dist.git",
                 "reference": "4c0e4becb8263bb5b3e6dadc448d8e7305ef8215"
             },
             "dist": {
@@ -65,7 +65,7 @@
             "version": "2.0.7.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yiisoft/jquery-pjax.git",
+                "url": "git@github.com:yiisoft/jquery-pjax.git",
                 "reference": "aef7b953107264f00234902a3880eb50dafc48be"
             },
             "dist": {
@@ -206,16 +206,16 @@
         },
         {
             "name": "dicr/yii2-json",
-            "version": "1.1.0",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/dicr/yii2-json.git",
-                "reference": "dfdaea4bc1dee51f4f705d326b6c7ae446167d61"
+                "reference": "ea57b9943304ba6944ff8a82aa33dc7cf8610f22"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-json/repository/archive.zip?sha=dfdaea4bc1dee51f4f705d326b6c7ae446167d61",
-                "reference": "dfdaea4bc1dee51f4f705d326b6c7ae446167d61",
+                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-json/repository/archive.zip?sha=ea57b9943304ba6944ff8a82aa33dc7cf8610f22",
+                "reference": "ea57b9943304ba6944ff8a82aa33dc7cf8610f22",
                 "shasum": ""
             },
             "require": {
@@ -261,7 +261,7 @@
                 "source": "https://gitlab.com/dicr/yii2-json.git",
                 "issues": "https://gitlab.com/api/v4/projects/22090060/issues"
             },
-            "time": "2020-10-31T15:45:48+03:00"
+            "time": "2020-11-03T22:58:01+03:00"
         },
         {
             "name": "dicr/yii2-validate",
@@ -383,16 +383,16 @@
         },
         {
             "name": "yiisoft/yii2",
-            "version": "2.0.38",
+            "version": "2.0.39",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "fd01e747cc66a049ec105048f0ab8dfbdf60bf4b"
+                "reference": "a41aa56b75e8d21ef0152dad52b38ba57e65fd76"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/fd01e747cc66a049ec105048f0ab8dfbdf60bf4b",
-                "reference": "fd01e747cc66a049ec105048f0ab8dfbdf60bf4b",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a41aa56b75e8d21ef0152dad52b38ba57e65fd76",
+                "reference": "a41aa56b75e8d21ef0152dad52b38ba57e65fd76",
                 "shasum": ""
             },
             "require": {
@@ -493,20 +493,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-09-14T21:52:10+00:00"
+            "time": "2020-11-10T10:58:35+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap4",
-            "version": "2.0.8",
+            "version": "2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap4.git",
-                "reference": "c67ae3f3624c35d977841f6b18d0d752ebed6420"
+                "reference": "a75555e4a888508416fadfd0a2b94881342cdd45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/c67ae3f3624c35d977841f6b18d0d752ebed6420",
-                "reference": "c67ae3f3624c35d977841f6b18d0d752ebed6420",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap4/zipball/a75555e4a888508416fadfd0a2b94881342cdd45",
+                "reference": "a75555e4a888508416fadfd0a2b94881342cdd45",
                 "shasum": ""
             },
             "require": {
@@ -514,13 +514,23 @@
                 "yiisoft/yii2": "~2.0"
             },
             "require-dev": {
-                "phpunit/phpunit": "<7",
+                "cweagans/composer-patches": "^1.7",
+                "phpunit/phpunit": "4.8.34",
                 "yiisoft/yii2-coding-standards": "~2.0"
             },
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
                     "dev-master": "1.0.x-dev"
+                },
+                "patches": {
+                    "phpunit/phpunit-mock-objects": {
+                        "Fix PHP 7 and 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_mock_objects.patch"
+                    },
+                    "phpunit/phpunit": {
+                        "Fix PHP 7 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php7.patch",
+                        "Fix PHP 8 compatibility": "https://yiisoft.github.io/phpunit-patches/phpunit_php8.patch"
+                    }
                 }
             },
             "autoload": {
@@ -562,7 +572,21 @@
                 "bootstrap4",
                 "yii2"
             ],
-            "time": "2019-10-08T11:01:37+00:00"
+            "funding": [
+                {
+                    "url": "https://github.com/yiisoft",
+                    "type": "github"
+                },
+                {
+                    "url": "https://opencollective.com/yiisoft",
+                    "type": "open_collective"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/yiisoft/yii2-bootstrap4",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-11-10T12:37:27+00:00"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -1473,16 +1497,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "9.4.2",
+            "version": "9.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa"
+                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa",
-                "reference": "3866b2eeeed21b1b099c4bc0b7a1690ac6fd5baa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
+                "reference": "9fa359ff5ddaa5eb2be2bedb08a6a5787a5807ab",
                 "shasum": ""
             },
             "require": {
@@ -1568,7 +1592,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2020-10-19T09:23:29+00:00"
+            "time": "2020-11-10T12:53:30+00:00"
         },
         {
             "name": "roave/security-advisories",
@@ -1576,12 +1600,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Roave/SecurityAdvisories.git",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6"
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
-                "reference": "065a018d3b5c2c84a53db3347cca4e1b7fa362a6",
+                "url": "https://api.github.com/repos/Roave/SecurityAdvisories/zipball/e440567339d5fe93d9525e377c5e686b0b08bcca",
+                "reference": "e440567339d5fe93d9525e377c5e686b0b08bcca",
                 "shasum": ""
             },
             "conflict": {
@@ -1879,7 +1903,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-11-01T20:01:47+00:00"
+            "time": "2020-11-07T16:07:08+00:00"
         },
         {
             "name": "sebastian/cli-parser",

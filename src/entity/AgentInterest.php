@@ -3,7 +3,7 @@
  * @copyright 2019-2020 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 02.11.20 14:09:39
+ * @version 10.11.20 17:16:22
  */
 
 declare(strict_types = 1);
@@ -25,7 +25,7 @@ class AgentInterest extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public static function attributeFields() : array
+    public function attributeFields() : array
     {
         return [
             'type' => 'interestType',
