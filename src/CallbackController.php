@@ -3,11 +3,11 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:05:29
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 use dicr\validate\ValidateException;
 use Yii;
@@ -20,7 +20,7 @@ use function call_user_func;
  * Обработчик callback-уведомлений от банка.
  * Реализована проверка только СИММЕТРИЧНОЙ криптографии контрольной суммы.
  *
- * @property-read SberbankModule $module
+ * @property-read SberpayModule $module
  */
 class CallbackController extends Controller
 {

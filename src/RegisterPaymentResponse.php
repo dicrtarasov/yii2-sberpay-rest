@@ -1,15 +1,15 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:21:56
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
-use dicr\sberbank\entity\ExternalParams;
+use dicr\sberpay\entity\ExternalParams;
 use dicr\validate\ValidateException;
 use Throwable;
 use Yii;
@@ -17,7 +17,7 @@ use Yii;
 /**
  * Ответ регистрации (создания) платежа.
  */
-class RegisterPaymentResponse extends SberbankResponse
+class RegisterPaymentResponse extends SberpayResponse
 {
     /**
      * @var ?string Номер заказа в платежной системе. Уникален в пределах системы.

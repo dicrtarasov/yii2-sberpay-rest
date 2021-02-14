@@ -3,14 +3,14 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 04:50:58
+ * @version 14.02.21 06:35:35
  */
 
 declare(strict_types = 1);
 namespace dicr\tests;
 
-use dicr\sberbank\OrderStatusResponse;
-use dicr\sberbank\SberbankModule;
+use dicr\sberpay\OrderStatusResponse;
+use dicr\sberpay\SberpayModule;
 use PHPUnit\Framework\TestCase;
 use Yii;
 use yii\base\Exception;
@@ -18,19 +18,19 @@ use yii\base\Exception;
 use function time;
 
 /**
- * Class SberbankModuleTest
+ * Class SberpayModuleTest
  */
-class SberbankModuleTest extends TestCase
+class SberpayModuleTest extends TestCase
 {
     /**
      * Модуль.
      *
-     * @return SberbankModule
+     * @return SberpayModule
      */
-    private static function module() : SberbankModule
+    private static function module(): SberpayModule
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
-        return Yii::$app->getModule('sberbank');
+        return Yii::$app->getModule('sberpay');
     }
 
     /**

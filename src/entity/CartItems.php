@@ -1,21 +1,21 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:20:02
+ * @version 14.02.21 06:35:35
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
 use dicr\json\EntityValidator;
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Элементы корзины.
  */
-class CartItems extends SberbankEntity
+class CartItems extends SberpayEntity
 {
     /** @var Item[] */
     public $items;
@@ -23,7 +23,7 @@ class CartItems extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'items' => [Item::class]

@@ -1,21 +1,21 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:19:23
+ * @version 14.02.21 06:35:35
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
-use dicr\sberbank\PhoneValidator;
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\PhoneValidator;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Оператор по приему платежей.
  */
-class PaymentsOperator extends SberbankEntity
+class PaymentsOperator extends SberpayEntity
 {
     /** @var string[] Массив телефонов оператора по приёму платежей в формате +N. */
     public $phones;
@@ -23,7 +23,7 @@ class PaymentsOperator extends SberbankEntity
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['phones', 'required'],

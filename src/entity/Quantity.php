@@ -1,20 +1,20 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:19:31
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Количество товара.
  */
-class Quantity extends SberbankEntity
+class Quantity extends SberpayEntity
 {
     /**
      * @var float Количество товарных позиций данного positionId. Для указания дробных чисел используйте

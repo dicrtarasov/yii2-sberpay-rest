@@ -5,10 +5,15 @@
 ```php
 $config = [
     'modules' => [
-        'sberbank' => [
-            'class' => dicr\sberbank\SberbankModule::class,
+        'sberpay' => [
+            'class' => dicr\sberpay\SberpayModule::class,
             'userName' => 'user-api',
-            'password' => 'my-password'
+            'password' => 'my-password',
+            
+            // опционально обработчик статуса платежей
+            'handler' => static function(dicr\sberpay\CallbackRequest $request) {
+                // сохранение статуса
+            }
         ]
     ]       
 ];
@@ -19,10 +24,10 @@ $config = [
 ### Создание платежа
 
 ```php
-/** @var dicr\sberbank\SberbankModule $module */
-$module = Yii::$app->getModule('sberbank');
+/** @var dicr\sberpay\SberpayModule $module */
+$module = Yii::$app->getModule('sberpay');
 
-/** @var dicr\sberbank\RegisterPaymentRequest $request создаем запрос */
+/** @var dicr\sberpay\RegisterPaymentRequest $request создаем запрос */
 $request = $module->registerPaymentRequest([
     'orderNumber' => '<номер заказа магазина>',
     //'amount' => 3982, // авто-вычисление
@@ -51,7 +56,7 @@ $request = $module->registerPaymentRequest([
     ]
 ]);
 
-/** @var dicr\sberbank\RegisterPaymentResponse $response отправляем запрос */
+/** @var dicr\sberpay\RegisterPaymentResponse $response отправляем запрос */
 $response = $request->send();
 
 /** @var string $orderId номер заказа в системе банка */
@@ -64,15 +69,15 @@ $response->redirect();
 ### Получение статуса платежа
 
 ```php
-/** @var dicr\sberbank\SberbankModule $module */
-$module = Yii::$app->getModule('sberbank');
+/** @var dicr\sberpay\SberpayModule $module */
+$module = Yii::$app->getModule('sberpay');
 
-/** @var dicr\sberbank\OrderStatusRequest $req создаем запрос */
+/** @var dicr\sberpay\OrderStatusRequest $req создаем запрос */
 $req = $module->orderStatusRequest([
     'orderId' => '<номер заказа магазина>'
 ]);
 
-/** @var dicr\sberbank\OrderStatusResponse $res отправляем запрос */
+/** @var dicr\sberpay\OrderStatusResponse $res отправляем запрос */
 $res = $req->send();
 
 /** @var int $orderStatus статус заказа */

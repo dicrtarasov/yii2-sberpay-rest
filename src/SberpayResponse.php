@@ -1,18 +1,18 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:20:30
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 /**
  * Ответ Сбербанк.
  */
-abstract class SberbankResponse extends SberbankEntity
+abstract class SberpayResponse extends SberpayEntity
 {
     /** @var ?int Код ошибки. Может отсутствовать, если результат не привёл к ошибке. */
     public $errorCode;

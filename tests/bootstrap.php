@@ -1,10 +1,10 @@
 <?php
 
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 02.11.20 14:12:57
+ * @version 14.02.21 06:34:20
  */
 declare(strict_types = 1);
 
@@ -35,9 +35,9 @@ new yii\console\Application([
         ]
     ],
     'modules' => [
-        'sberbank' => [
-            'class' => dicr\sberbank\SberbankModule::class,
-            'url' => dicr\sberbank\SberbankModule::URL_TEST,
+        'sberpay' => [
+            'class' => dicr\sberpay\SberpayModule::class,
+            'url' => dicr\sberpay\SberpayModule::URL_TEST,
             'userName' => 'test-api', // тестовый логин
             'password' => 'test' // тестовый пароль
         ]

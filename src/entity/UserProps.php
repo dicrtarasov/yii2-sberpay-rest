@@ -1,20 +1,20 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:20:03
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Реквизит пользователя.
  */
-class UserProps extends SberbankEntity
+class UserProps extends SberpayEntity
 {
     /** @var string Наименование дополнительного реквизита пользователя. */
     public $name;

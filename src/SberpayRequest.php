@@ -3,11 +3,11 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 04:49:19
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 use dicr\validate\ValidateException;
 use Yii;
@@ -17,18 +17,18 @@ use yii\httpclient\Client;
 /**
  * Абстрактный запрос.
  */
-abstract class SberbankRequest extends SberbankEntity
+abstract class SberpayRequest extends SberpayEntity
 {
-    /** @var SberbankModule */
+    /** @var SberpayModule */
     protected $module;
 
     /**
      * Constructor.
      *
-     * @param SberbankModule $module
+     * @param SberpayModule $module
      * @param array $config
      */
-    public function __construct(SberbankModule $module, $config = [])
+    public function __construct(SberpayModule $module, $config = [])
     {
         $this->module = $module;
 

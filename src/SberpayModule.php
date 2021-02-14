@@ -3,11 +3,11 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 05:57:44
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 use Yii;
 use yii\base\InvalidConfigException;
@@ -24,7 +24,7 @@ use function is_callable;
  *
  * @link https://securepayments.sberbank.ru/wiki/doku.php/main_page API
  */
-class SberbankModule extends Module
+class SberpayModule extends Module
 {
     /**
      * @var string URL API для тестов

@@ -1,21 +1,21 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:16:14
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
 use dicr\json\EntityValidator;
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Информация об агенте.
  */
-class AgentInfo extends SberbankEntity
+class AgentInfo extends SberpayEntity
 {
     /** @var int банковский платёжный агент */
     public const TYPE_BANK_AGENT = 1;

@@ -1,21 +1,21 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:20:02
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank\entity;
+namespace dicr\sberpay\entity;
 
 use dicr\json\EntityValidator;
-use dicr\sberbank\SberbankEntity;
+use dicr\sberpay\SberpayEntity;
 
 /**
  * Дополнительные параметры ОФД.
  */
-class OfdParams extends SberbankEntity
+class OfdParams extends SberpayEntity
 {
     /** @var ?AgentInfo агент */
     public $agentInfo;

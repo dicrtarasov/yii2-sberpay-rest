@@ -1,13 +1,13 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 09:34:34
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 /**
  * Ответ состояния платежа.
@@ -16,7 +16,7 @@ namespace dicr\sberbank;
  *
  * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:rest:requests:getorderstatusextended
  */
-class OrderStatusResponse extends SberbankResponse
+class OrderStatusResponse extends SberpayResponse
 {
     /** @var int заказ зарегистрирован, но не оплачен */
     public const STATUS_REGISTERED = 0;

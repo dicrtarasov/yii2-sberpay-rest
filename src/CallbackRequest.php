@@ -3,11 +3,11 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 05:55:15
+ * @version 14.02.21 06:30:42
  */
 
 declare(strict_types = 1);
-namespace dicr\sberbank;
+namespace dicr\sberpay;
 
 use function hash_hmac;
 use function ksort;
@@ -19,7 +19,7 @@ use function strtoupper;
  *
  * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:callback:start
  */
-class CallbackRequest extends SberbankEntity
+class CallbackRequest extends SberpayEntity
 {
     /** @var string операция удержания (холдирования) суммы */
     public const OPERATION_APPROVED = 'approved';
@@ -51,16 +51,16 @@ class CallbackRequest extends SberbankEntity
     /** @var ?string Аутентификационный код, или контрольная сумма, полученная из набора параметров. */
     public $checksum;
 
-    /** @var SberbankModule */
+    /** @var SberpayModule */
     private $module;
 
     /**
      * CallbackRequest constructor.
      *
-     * @param SberbankModule $module
+     * @param SberpayModule $module
      * @param array $config
      */
-    public function __construct(SberbankModule $module, array $config = [])
+    public function __construct(SberpayModule $module, array $config = [])
     {
         $this->module = $module;
 
