@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:44
+ * @version 14.02.21 06:45:51
  */
 
 declare(strict_types = 1);
@@ -18,9 +18,9 @@ use yii\base\Exception;
 use function time;
 
 /**
- * Class SberpayModuleTest
+ * Class SberPayModuleTest
  */
-class SberpayModuleTest extends TestCase
+class SberPayModuleTest extends TestCase
 {
     /**
      * Модуль.
