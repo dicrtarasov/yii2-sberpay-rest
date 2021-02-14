@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:44
+ * @version 14.02.21 08:18:08
  */
 
 declare(strict_types = 1);
@@ -52,7 +52,7 @@ class SberPayModule extends Module
      * Если не установлен, то checksum в callback-запросе не проверяются.
      * Реализована только проверка контрольной суммы с использованием СИММЕТРИЧНОЙ криптографии.
      */
-    public $secretToken;
+    public $secureToken;
 
     /** @var ?callable function(CallbackRequest $request): void обработчик callback-запросов */
     public $handler;

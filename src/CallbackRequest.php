@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:44
+ * @version 14.02.21 08:18:08
  */
 
 declare(strict_types = 1);
@@ -82,7 +82,7 @@ class CallbackRequest extends SberPayEntity
             ['status', 'filter', 'filter' => 'boolval'],
 
             ['checksum', 'trim'],
-            ['checksum', 'required', 'when' => fn(): bool => ! empty($this->module->secretToken)],
+            ['checksum', 'required', 'when' => fn(): bool => ! empty($this->module->secureToken)],
             ['checksum', function(string $attribute): void {
                 // параметры запроса
                 $get = $_GET;
@@ -100,7 +100,7 @@ class CallbackRequest extends SberPayEntity
                 }
 
                 // рассчитываем контрольную сумму
-                $hmac = strtoupper(hash_hmac('sha256', $str, (string)$this->module->secretToken));
+                $hmac = strtoupper(hash_hmac('sha256', $str, (string)$this->module->secureToken));
                 if ($hmac !== $this->{$attribute}) {
                     $this->addError($attribute, 'некорректный проверочный код');
                 }
