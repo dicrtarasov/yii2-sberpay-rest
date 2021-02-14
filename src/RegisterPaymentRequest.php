@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:21:47
+ * @version 14.02.21 04:45:59
  */
 
 declare(strict_types = 1);
@@ -11,13 +11,10 @@ namespace dicr\sberbank;
 
 use dicr\json\EntityValidator;
 use dicr\sberbank\entity\AppInfo;
-use dicr\sberbank\entity\Item;
 use dicr\sberbank\entity\OfdParams;
 use dicr\sberbank\entity\OrderBundle;
 use yii\helpers\Json;
 
-use function array_reduce;
-use function round;
 use function str_replace;
 
 /**
@@ -230,7 +227,7 @@ class RegisterPaymentRequest extends SberbankRequest
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'additionalOfdParams' => OfdParams::class,
@@ -242,7 +239,7 @@ class RegisterPaymentRequest extends SberbankRequest
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['orderNumber', 'trim'],
@@ -263,9 +260,9 @@ class RegisterPaymentRequest extends SberbankRequest
 
             ['description', 'trim'],
             ['description', 'default'],
-            ['description', 'filter', 'filter' => static function (string $description) : string {
-                return str_replace(['%', '+', "\r", "\n"], ['_', '_', ' ', ' '], $description);
-            }, 'skipOnEmpty' => true],
+            ['description', 'filter', 'filter' => static fn(string $description): string => str_replace(
+                ['%', '+', "\r", "\n"], ['_', '_', ' ', ' '], $description
+            ), 'skipOnEmpty' => true],
             ['description', 'string', 'max' => 512],
 
             ['language', 'default'],
@@ -298,11 +295,9 @@ class RegisterPaymentRequest extends SberbankRequest
             ['orderBundle', EntityValidator::class],
 
             // проверяем после валидации orderBundle
-            ['amount', 'default', 'value' => function () : ?int {
-                return $this->getAmount();
-            }],
+            ['amount', 'default', 'value' => fn(): ?int => $this->amount()],
             ['amount', 'required'],
-            ['amount', 'number', 'min' => 0.01],
+            ['amount', 'integer', 'min' => 1],
 
             ['taxSystem', 'default'],
             ['taxSystem', 'in', 'range' => [
@@ -340,21 +335,25 @@ class RegisterPaymentRequest extends SberbankRequest
      *
      * @return ?int
      */
-    public function getAmount() : ?int
+    public function amount(): ?int
     {
         if (! isset($this->orderBundle->cartItems->items)) {
             return null;
         }
 
-        return array_reduce($this->orderBundle->cartItems->items, static function (int $amount, Item $item) : int {
-            return $amount + (int)round($item->price * $item->quantity->value);
-        }, 0);
+        $amount = 0;
+
+        foreach ($this->orderBundle->cartItems->items as $item) {
+            $amount += $item->amount ?? $item->amount();
+        }
+
+        return $amount;
     }
 
     /**
      * @inheritDoc
      */
-    public function getJson() : array
+    public function getJson(): array
     {
         // извращения Сбербанк потому что там программисты дебилы
         return array_filter(array_merge(parent::getJson(), [
@@ -363,15 +362,13 @@ class RegisterPaymentRequest extends SberbankRequest
             'orderBundle' => isset($this->orderNumber) ?
                 Json::encode($this->orderBundle->json) : null,
             'app' => isset($this->app) ? Json::encode($this->app->json) : null
-        ]), static function ($val) : bool {
-            return $val !== null && $val !== '' && $val !== [];
-        });
+        ]), static fn($val): bool => $val !== null && $val !== '' && $val !== []);
     }
 
     /**
      * @inheritDoc
      */
-    public static function url() : string
+    public static function url(): string
     {
         return 'register.do';
     }
@@ -380,7 +377,7 @@ class RegisterPaymentRequest extends SberbankRequest
      * @inheritDoc
      * @return RegisterPaymentResponse
      */
-    public function send() : RegisterPaymentResponse
+    public function send(): RegisterPaymentResponse
     {
         return new RegisterPaymentResponse([
             'json' => parent::send()

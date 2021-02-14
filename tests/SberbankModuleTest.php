@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 15:26:02
+ * @version 14.02.21 04:50:58
  */
 
 declare(strict_types = 1);
@@ -36,6 +36,7 @@ class SberbankModuleTest extends TestCase
     /**
      *
      * @throws Exception
+     * @noinspection PhpUnitMissingTargetForTestInspection
      */
     public function testRegister() : void
     {
@@ -44,7 +45,7 @@ class SberbankModuleTest extends TestCase
 
         $req = self::module()->registerPaymentRequest([
             'orderNumber' => $orderNumber,
-            //'amount' => $amount, автовычисление
+            //'amount' => $amount, авто-вычисление
             'returnUrl' => 'https://test.ru',
             'orderBundle' => [
                 'cartItems' => [
@@ -55,7 +56,7 @@ class SberbankModuleTest extends TestCase
                             'code' => 'VODKA-777',
                             'price' => 1203,
                             'quantity' => ['value' => 1.255, 'measure' => 'л'] // чекушка 1.25 литров
-                            //'amount' => 1509.765 ( 1510 копеек ) автовычисление
+                            //'amount' => 1509.765 ( 1510 копеек ) авто-вычисление
                         ],
                         [
                             'positionId' => 2,

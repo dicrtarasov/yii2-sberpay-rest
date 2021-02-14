@@ -2,8 +2,8 @@
     "name": "dicr/yii2-sberbank-rest",
     "type": "yii2-extension",
     "license": "MIT",
-    "homepage": "https://gitlab.com/dicr/yii2-sberbank-rest",
     "description": "Sberbank REST API для Yii2",
+    "homepage": "https://gitlab.com/dicr/yii2-sberbank-rest",
     "keywords": ["dicr", "yii2", "payment", "sberbank", "rest"],
     "authors": [
         {
@@ -18,9 +18,11 @@
     },
     "minimum-stability": "stable",
     "require": {
-        "php": "~7.3",
+        "php": "~7.4 || ~8.0.1",
+
         "yiisoft/yii2": "~2.0",
         "yiisoft/yii2-httpclient": "~2.0",
+
         "dicr/yii2-json": "~2.0",
         "dicr/yii2-helper": "~4.0",
         "dicr/yii2-validate": "~2.2"
@@ -36,13 +38,13 @@
         }
     },
     "repositories": [
+        {"type": "composer", "url": "https://asset-packagist.org"},
         {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-json.git"},
         {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-helper.git"},
-        {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-validate.git"},
-        {"type": "composer", "url": "https://asset-packagist.org"}
+        {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-validate.git"}
     ],
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "phpunit/phpunit": "~9.4"
+        "phpunit/phpunit": "~9.5"
     }
 }

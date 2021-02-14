@@ -3,11 +3,13 @@
 ## Настройка
 
 ```php
-'modules' => [
-    'sberbank' => [
-        'class' => dicr\sberbank\SberbankModule::class,
-        'userName' => 'user-api',
-        'password' => 'my-password'
+$config = [
+    'modules' => [
+        'sberbank' => [
+            'class' => dicr\sberbank\SberbankModule::class,
+            'userName' => 'user-api',
+            'password' => 'my-password'
+        ]
     ]       
 ];
 ```
@@ -17,13 +19,13 @@
 ### Создание платежа
 
 ```php
-/** @var SberbankModule $module */
+/** @var dicr\sberbank\SberbankModule $module */
 $module = Yii::$app->getModule('sberbank');
 
-/** @var RegisterPaymentRequest $request создаем запрос */
+/** @var dicr\sberbank\RegisterPaymentRequest $request создаем запрос */
 $request = $module->registerPaymentRequest([
-    'orderNumber' => $orderNumber,
-    //'amount' => 3982, // автовычисление
+    'orderNumber' => '<номер заказа магазина>',
+    //'amount' => 3982, // авто-вычисление
     'returnUrl' => 'https://test.ru',
     'orderBundle' => [
         'cartItems' => [
@@ -34,7 +36,7 @@ $request = $module->registerPaymentRequest([
                     'code' => 'VODKA-777',
                     'price' => 1203,
                     'quantity' => ['value' => 1.255, 'measure' => 'л'] // чекушка 1.25 литров
-                    //'amount' => 1509.765 ( 1510 копеек ) автовычисление с округлением
+                    //'amount' => 1509.765 ( 1510 копеек ) авто-вычисление с округлением
                 ],
                 [
                     'positionId' => 2,
@@ -49,7 +51,7 @@ $request = $module->registerPaymentRequest([
     ]
 ]);
 
-/** @var RegisterPaymentResponse $response отправляем запрос */
+/** @var dicr\sberbank\RegisterPaymentResponse $response отправляем запрос */
 $response = $request->send();
 
 /** @var string $orderId номер заказа в системе банка */
@@ -59,22 +61,21 @@ $orderId = $response->orderId;
 $response->redirect();
 ```
 
-
 ### Получение статуса платежа
 
 ```php
-/** @var SberbankModule $module */
+/** @var dicr\sberbank\SberbankModule $module */
 $module = Yii::$app->getModule('sberbank');
 
-/** @var OrderStatusRequest $req создаем запрос */
+/** @var dicr\sberbank\OrderStatusRequest $req создаем запрос */
 $req = $module->orderStatusRequest([
-    'orderId' => $orderId
+    'orderId' => '<номер заказа магазина>'
 ]);
 
-/** @var OrderStatusResponse $res отправляем запрос */
+/** @var dicr\sberbank\OrderStatusResponse $res отправляем запрос */
 $res = $req->send();
 
-/** @var int $orderStatus стутс заказа */
+/** @var int $orderStatus статус заказа */
 $orderStatus = $res->orderStatus;
 ```
 

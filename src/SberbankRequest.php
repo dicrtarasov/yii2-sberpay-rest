@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 14:58:17
+ * @version 14.02.21 04:49:19
  */
 
 declare(strict_types = 1);
@@ -40,7 +40,7 @@ abstract class SberbankRequest extends SberbankEntity
      *
      * @return string
      */
-    abstract public static function url() : string;
+    abstract public static function url(): string;
 
     /**
      * Отправляет запрос.
@@ -60,15 +60,13 @@ abstract class SberbankRequest extends SberbankEntity
             'token' => $this->module->token,
             'userName' => $this->module->userName,
             'password' => $this->module->password
-        ], $this->json), static function ($val) : bool {
-            return $val !== null && $val !== '';
-        });
+        ], $this->json), static fn($val): bool => $val !== null && $val !== '');
 
         $req = $this->module->httpClient->post(static::url(), $data);
 
         Yii::debug('Запрос: ' . $req->toString(), __METHOD__);
         $res = $req->send();
-        Yii::debug('Ответ: ' . $res->toString());
+        Yii::debug('Ответ: ' . $res->toString(), __METHOD__);
 
         if (! $res->isOk) {
             throw new Exception('HTTP-error: ' . $res->statusCode);

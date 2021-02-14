@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 08:14:18
+ * @version 14.02.21 04:55:22
  */
 
 declare(strict_types = 1);
@@ -13,6 +13,9 @@ use dicr\sberbank\SberbankEntity;
 
 /**
  * Параметры для схемы app2app и back2app.
+ * Поле externalParams в ответе RegisterPayment
+ *
+ * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:rest:requests:register
  */
 class ExternalParams extends SberbankEntity
 {

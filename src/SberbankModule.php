@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 14:35:42
+ * @version 14.02.21 05:57:44
  */
 
 declare(strict_types = 1);
@@ -15,6 +15,7 @@ use yii\base\Module;
 use yii\httpclient\Client;
 
 use function array_merge;
+use function is_callable;
 
 /**
  * Модуль клиента Сбербанк.
@@ -22,7 +23,6 @@ use function array_merge;
  * @property-read Client $httpClient
  *
  * @link https://securepayments.sberbank.ru/wiki/doku.php/main_page API
- * @todo реализовать callback https://securepayments.sberbank.ru/wiki/doku.php/integration:api:callback:start
  */
 class SberbankModule extends Module
 {
@@ -47,6 +47,16 @@ class SberbankModule extends Module
     /** @var ?string пароль */
     public $password;
 
+    /**
+     * @var ?string секретный ключ для проверки callback-уведомлений.
+     * Если не установлен, то checksum в callback-запросе не проверяются.
+     * Реализована только проверка контрольной суммы с использованием СИММЕТРИЧНОЙ криптографии.
+     */
+    public $secretToken;
+
+    /** @var ?callable function(CallbackRequest $request): void обработчик callback-запросов */
+    public $handler;
+
     /** @var array конфиг HTTP-клиента */
     public $httpClientConfig = [];
 
@@ -57,7 +67,7 @@ class SberbankModule extends Module
      * @inheritDoc
      * @throws InvalidConfigException
      */
-    public function init() : void
+    public function init(): void
     {
         parent::init();
 
@@ -74,6 +84,10 @@ class SberbankModule extends Module
                 throw new InvalidConfigException('password');
             }
         }
+
+        if ($this->handler !== null && ! is_callable($this->handler)) {
+            throw new InvalidConfigException('handler');
+        }
     }
 
     /** @var Client */
@@ -85,12 +99,12 @@ class SberbankModule extends Module
      * @return Client
      * @throws InvalidConfigException
      */
-    public function getHttpClient() : Client
+    public function getHttpClient(): Client
     {
         if ($this->_httpClient === null) {
             $this->_httpClient = Yii::createObject(array_merge([
                 'class' => Client::class,
-            ]));
+            ], $this->httpClientConfig ?: []));
         }
 
         // динамически обновляем baseUrl
@@ -105,7 +119,7 @@ class SberbankModule extends Module
      * @param array $config
      * @return RegisterPaymentRequest
      */
-    public function registerPaymentRequest(array $config = []) : RegisterPaymentRequest
+    public function registerPaymentRequest(array $config = []): RegisterPaymentRequest
     {
         return new RegisterPaymentRequest($this, $config);
     }
@@ -116,7 +130,7 @@ class SberbankModule extends Module
      * @param array $config
      * @return OrderStatusRequest
      */
-    public function orderStatusRequest(array $config = []) : OrderStatusRequest
+    public function orderStatusRequest(array $config = []): OrderStatusRequest
     {
         return new OrderStatusRequest($this, $config);
     }

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 16.10.20 14:58:56
+ * @version 14.02.21 06:08:12
  */
 
 declare(strict_types = 1);
@@ -43,13 +43,9 @@ class OrderStatusRequest extends SberbankRequest
             [['orderId', 'orderNumber', 'language'], 'trim'],
             [['orderId', 'orderNumber', 'language'], 'default'],
 
-            ['orderId', 'required', 'when' => function () : bool {
-                return empty($this->orderNumber);
-            }],
+            ['orderId', 'required', 'when' => fn(): bool => empty($this->orderNumber)],
 
-            ['orderNumber', 'required', 'when' => function () : bool {
-                return empty($this->orderId);
-            }]
+            ['orderNumber', 'required', 'when' => fn(): bool => empty($this->orderId)]
         ]);
     }
 

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:20:02
+ * @version 14.02.21 06:08:12
  */
 
 declare(strict_types = 1);
@@ -149,9 +149,7 @@ class Item extends SberbankEntity
             ['price', 'filter', 'filter' => 'intval', 'skipOnEmpty' => true],
 
             // проверяем после quantity и price
-            ['amount', 'default', 'value' => function () : ?int {
-                return $this->getAmount();
-            }],
+            ['amount', 'default', 'value' => fn(): ?int => $this->amount()],
             ['amount', 'integer', 'min' => 1],
             ['amount', 'filter', 'filter' => 'intval', 'skipOnEmpty' => true],
 
@@ -165,7 +163,7 @@ class Item extends SberbankEntity
      *
      * @return ?int
      */
-    public function getAmount() : ?int
+    public function amount(): ?int
     {
         return isset($this->price, $this->quantity->value) ?
             (int)round($this->price * $this->quantity->value) : null;

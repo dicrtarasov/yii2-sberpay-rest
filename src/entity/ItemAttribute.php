@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2020 Dicr http://dicr.org
+ * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 10.11.20 17:20:02
+ * @version 14.02.21 04:55:30
  */
 
 declare(strict_types = 1);
@@ -86,10 +86,10 @@ class ItemAttribute extends SberbankEntity
     /** @var int страховые взносы */
     public const OBJECT_INSURANCE = 16;
 
-    /** @var int торговый сбор */
+    /** @var int торговый сбор */
     public const OBJECT_TRADE = 17;
 
-    /** @var int курортный сбор */
+    /** @var int курортный сбор */
     public const OBJECT_RESORT = 18;
 
     /**
