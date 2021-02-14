@@ -3,14 +3,14 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:35:35
+ * @version 14.02.21 06:44:44
  */
 
 declare(strict_types = 1);
 namespace dicr\tests;
 
 use dicr\sberpay\OrderStatusResponse;
-use dicr\sberpay\SberpayModule;
+use dicr\sberpay\SberPayModule;
 use PHPUnit\Framework\TestCase;
 use Yii;
 use yii\base\Exception;
@@ -25,9 +25,9 @@ class SberpayModuleTest extends TestCase
     /**
      * Модуль.
      *
-     * @return SberpayModule
+     * @return SberPayModule
      */
-    private static function module(): SberpayModule
+    private static function module(): SberPayModule
     {
         /** @noinspection PhpIncompatibleReturnTypeInspection */
         return Yii::$app->getModule('sberpay');

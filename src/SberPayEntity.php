@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:35:35
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
@@ -14,7 +14,7 @@ use dicr\json\JsonEntity;
 /**
  * Абстрактная структура данных Сбербанк.
  */
-abstract class SberpayEntity extends JsonEntity
+abstract class SberPayEntity extends JsonEntity
 {
     /**
      * @inheritDoc

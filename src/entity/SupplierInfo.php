@@ -3,20 +3,20 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
 namespace dicr\sberpay\entity;
 
 use dicr\sberpay\PhoneValidator;
-use dicr\sberpay\SberpayEntity;
+use dicr\sberpay\SberPayEntity;
 use dicr\validate\InnValidator;
 
 /**
  * Информация о поставщике.
  */
-class SupplierInfo extends SberpayEntity
+class SupplierInfo extends SberPayEntity
 {
     /** @var string Наименование поставщика. */
     public $name;

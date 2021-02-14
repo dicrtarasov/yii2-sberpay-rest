@@ -3,13 +3,13 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
 namespace dicr\sberpay\entity;
 
-use dicr\sberpay\SberpayEntity;
+use dicr\sberpay\SberPayEntity;
 
 /**
  * Параметры для схемы app2app и back2app.
@@ -17,7 +17,7 @@ use dicr\sberpay\SberpayEntity;
  *
  * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:rest:requests:register
  */
-class ExternalParams extends SberpayEntity
+class ExternalParams extends SberPayEntity
 {
     /** @var ?string Уникальный идентификатор заказа, сгенерированный Банком. */
     public $sbolBankInvoiceId;

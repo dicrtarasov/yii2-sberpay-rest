@@ -6,7 +6,7 @@
 $config = [
     'modules' => [
         'sberpay' => [
-            'class' => dicr\sberpay\SberpayModule::class,
+            'class' => dicr\sberpay\SberPayModule::class,
             'userName' => 'user-api',
             'password' => 'my-password',
             
@@ -24,7 +24,7 @@ $config = [
 ### Создание платежа
 
 ```php
-/** @var dicr\sberpay\SberpayModule $module */
+/** @var dicr\sberpay\SberPayModule $module */
 $module = Yii::$app->getModule('sberpay');
 
 /** @var dicr\sberpay\RegisterPaymentRequest $request создаем запрос */
@@ -69,7 +69,7 @@ $response->redirect();
 ### Получение статуса платежа
 
 ```php
-/** @var dicr\sberpay\SberpayModule $module */
+/** @var dicr\sberpay\SberPayModule $module */
 $module = Yii::$app->getModule('sberpay');
 
 /** @var dicr\sberpay\OrderStatusRequest $req создаем запрос */

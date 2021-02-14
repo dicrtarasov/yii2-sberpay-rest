@@ -4,7 +4,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:34:20
+ * @version 14.02.21 06:44:44
  */
 declare(strict_types = 1);
 
@@ -36,8 +36,8 @@ new yii\console\Application([
     ],
     'modules' => [
         'sberpay' => [
-            'class' => dicr\sberpay\SberpayModule::class,
-            'url' => dicr\sberpay\SberpayModule::URL_TEST,
+            'class' => dicr\sberpay\SberPayModule::class,
+            'url' => dicr\sberpay\SberPayModule::URL_TEST,
             'userName' => 'test-api', // тестовый логин
             'password' => 'test' // тестовый пароль
         ]

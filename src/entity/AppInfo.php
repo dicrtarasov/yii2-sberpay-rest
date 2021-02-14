@@ -3,18 +3,18 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
 namespace dicr\sberpay\entity;
 
-use dicr\sberpay\SberpayEntity;
+use dicr\sberpay\SberPayEntity;
 
 /**
  * Информация о приложении.
  */
-class AppInfo extends SberpayEntity
+class AppInfo extends SberPayEntity
 {
     /** @var string */
     public const OS_TYPE_IOS = 'ios';

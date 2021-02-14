@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:44
  */
 
 declare(strict_types = 1);
@@ -20,7 +20,7 @@ use function call_user_func;
  * Обработчик callback-уведомлений от банка.
  * Реализована проверка только СИММЕТРИЧНОЙ криптографии контрольной суммы.
  *
- * @property-read SberpayModule $module
+ * @property-read SberPayModule $module
  */
 class CallbackController extends Controller
 {

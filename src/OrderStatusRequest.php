@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
@@ -12,7 +12,7 @@ namespace dicr\sberpay;
 /**
  * Запрос состояния платежа.
  */
-class OrderStatusRequest extends SberpayRequest
+class OrderStatusRequest extends SberPayRequest
 {
     /**
      * @var ?string Номер заказа в платежной системе.

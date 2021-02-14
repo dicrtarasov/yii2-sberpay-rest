@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:30:42
+ * @version 14.02.21 06:44:32
  */
 
 declare(strict_types = 1);
@@ -23,7 +23,7 @@ use function str_replace;
  * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:rest:requests:register
  * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:rest:requests:register_cart
  */
-class RegisterPaymentRequest extends SberpayRequest
+class RegisterPaymentRequest extends SberPayRequest
 {
     /**
      * @var string для загрузки страниц, вёрстка которых предназначена для отображения на экранах ПК.
