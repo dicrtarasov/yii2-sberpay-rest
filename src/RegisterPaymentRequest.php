@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 14.02.21 08:21:08
  */
 
 declare(strict_types = 1);
@@ -359,7 +359,7 @@ class RegisterPaymentRequest extends SberPayRequest
         return array_filter(array_merge(parent::getJson(), [
             'additionalOfdParams' => isset($this->additionalOfdParams) ?
                 Json::encode($this->additionalOfdParams->json) : null,
-            'orderBundle' => isset($this->orderNumber) ?
+            'orderBundle' => isset($this->orderBundle) ?
                 Json::encode($this->orderBundle->json) : null,
             'app' => isset($this->app) ? Json::encode($this->app->json) : null
         ]), static fn($val): bool => $val !== null && $val !== '' && $val !== []);
