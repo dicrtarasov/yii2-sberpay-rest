@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/yii2-sberbank-rest.iml" filepath="$PROJECT_DIR$/.idea/yii2-sberbank-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/yii2-sberpay-rest.iml" filepath="$PROJECT_DIR$/.idea/yii2-sberpay-rest.iml" />
     </modules>
   </component>
 </project>

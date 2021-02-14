@@ -1,10 +1,10 @@
 {
-    "name": "dicr/yii2-sberbank-rest",
+    "name": "dicr/yii2-sberpay-rest",
     "type": "yii2-extension",
     "license": "MIT",
     "description": "Sberbank REST API для Yii2",
-    "homepage": "https://gitlab.com/dicr/yii2-sberbank-rest",
-    "keywords": ["dicr", "yii2", "payment", "sberbank", "rest"],
+    "homepage": "https://gitlab.com/dicr/yii2-sberpay-rest",
+    "keywords": ["dicr", "yii2", "payment", "sberbank", "rest", "sberpay"],
     "authors": [
         {
             "name": "Igor Tarasov",
@@ -14,7 +14,7 @@
         }
     ],
     "support": {
-        "source": "https://gitlab.com/dicr/yii2-sberbank-rest.git"
+        "source": "https://gitlab.com/dicr/yii2-sberpay-rest.git"
     },
     "minimum-stability": "stable",
     "require": {
@@ -29,7 +29,7 @@
     },
     "autoload": {
         "psr-4": {
-            "dicr\\sberbank\\": "src/"
+            "dicr\\sberpay\\": "src/"
         }
     },
     "autoload-dev": {
