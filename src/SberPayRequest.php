@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:44
+ * @version 14.02.21 08:26:57
  */
 
 declare(strict_types = 1);
@@ -56,11 +56,18 @@ abstract class SberPayRequest extends SberPayEntity
             throw new ValidateException($this);
         }
 
-        $data = array_filter(array_merge([
-            'token' => $this->module->token,
-            'userName' => $this->module->userName,
-            'password' => $this->module->password
-        ], $this->json), static fn($val): bool => $val !== null && $val !== '');
+        $data = $this->json;
+        if (! empty($this->module->token)) {
+            $data['token'] = $this->module->token;
+        } else {
+            $data['userName'] = $this->module->userName;
+            $data['password'] = $this->module->password;
+        }
+
+        $data = array_filter(
+            $data,
+            static fn($val): bool => $val !== null && $val !== ''
+        );
 
         $req = $this->module->httpClient->post(static::url(), $data);
 
