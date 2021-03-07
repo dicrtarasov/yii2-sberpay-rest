@@ -24,8 +24,8 @@
         "yiisoft/yii2-httpclient": "~2.0",
 
         "dicr/yii2-json": "~2.0",
-        "dicr/yii2-helper": "~4.0",
-        "dicr/yii2-validate": "~2.2"
+        "dicr/yii2-helper": "~4.3",
+        "dicr/yii2-validate": "~2.3"
     },
     "autoload": {
         "psr-4": {
