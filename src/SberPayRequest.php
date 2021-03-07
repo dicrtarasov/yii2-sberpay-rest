@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 08:26:57
+ * @version 07.03.21 17:28:13
  */
 
 declare(strict_types = 1);
@@ -40,7 +40,7 @@ abstract class SberPayRequest extends SberPayEntity
      *
      * @return string
      */
-    abstract public static function url(): string;
+    abstract public function url(): string;
 
     /**
      * Отправляет запрос.

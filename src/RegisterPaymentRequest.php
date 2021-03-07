@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 08:21:08
+ * @version 07.03.21 17:34:39
  */
 
 declare(strict_types = 1);
@@ -15,6 +15,8 @@ use dicr\sberpay\entity\OfdParams;
 use dicr\sberpay\entity\OrderBundle;
 use yii\helpers\Json;
 
+use function array_filter;
+use function array_merge;
 use function str_replace;
 
 /**
@@ -224,6 +226,9 @@ class RegisterPaymentRequest extends SberPayRequest
     /** @var ?bool Атрибут, указывающий на способ оплаты по сценарию back2app */
     public $back2app;
 
+    /** @var bool запрос с предавторизацией */
+    public $preAuth = false;
+
     /**
      * @inheritDoc
      */
@@ -355,22 +360,32 @@ class RegisterPaymentRequest extends SberPayRequest
      */
     public function getJson(): array
     {
-        // извращения Сбербанк потому что там программисты дебилы
-        return array_filter(array_merge(parent::getJson(), [
+        $json = parent::getJson();
+
+        // удаляем лишний атрибут preAuth
+        unset($json['preAuth']);
+
+        // дебильные программисты Сбербанк поля дополнительно кодируют в JSON
+        $json = array_merge($json, [
             'additionalOfdParams' => isset($this->additionalOfdParams) ?
                 Json::encode($this->additionalOfdParams->json) : null,
             'orderBundle' => isset($this->orderBundle) ?
                 Json::encode($this->orderBundle->json) : null,
             'app' => isset($this->app) ? Json::encode($this->app->json) : null
-        ]), static fn($val): bool => $val !== null && $val !== '' && $val !== []);
+        ]);
+
+        return array_filter(
+            $json,
+            static fn($val): bool => $val !== null && $val !== '' && $val !== []
+        );
     }
 
     /**
      * @inheritDoc
      */
-    public static function url(): string
+    public function url(): string
     {
-        return 'register.do';
+        return $this->preAuth ? 'registerPreAuth.do' : 'register.do';
     }
 
     /**

@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 07.03.21 17:35:26
  */
 
 declare(strict_types = 1);
@@ -52,7 +52,7 @@ class OrderStatusRequest extends SberPayRequest
     /**
      * @return string
      */
-    public static function url() : string
+    public function url(): string
     {
         return 'getOrderStatusExtended.do';
     }
