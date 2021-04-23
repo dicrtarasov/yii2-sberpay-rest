@@ -3,14 +3,14 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 07.03.21 17:28:13
+ * @version 23.04.21 16:06:51
  */
 
 declare(strict_types = 1);
 namespace dicr\sberpay;
 
+use dicr\helper\Log;
 use dicr\validate\ValidateException;
-use Yii;
 use yii\base\Exception;
 use yii\httpclient\Client;
 
@@ -70,10 +70,10 @@ abstract class SberPayRequest extends SberPayEntity
         );
 
         $req = $this->module->httpClient->post(static::url(), $data);
+        Log::debug('Запрос: ' . $req->toString());
 
-        Yii::debug('Запрос: ' . $req->toString(), __METHOD__);
         $res = $req->send();
-        Yii::debug('Ответ: ' . $res->toString(), __METHOD__);
+        Log::debug('Ответ: ' . $res->toString());
 
         if (! $res->isOk) {
             throw new Exception('HTTP-error: ' . $res->statusCode);
