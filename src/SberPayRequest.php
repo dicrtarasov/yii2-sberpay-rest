@@ -3,7 +3,7 @@
  * @copyright 2019-2021 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 23.04.21 16:06:51
+ * @version 03.07.21 03:50:15
  */
 
 declare(strict_types = 1);
@@ -28,7 +28,7 @@ abstract class SberPayRequest extends SberPayEntity
      * @param SberPayModule $module
      * @param array $config
      */
-    public function __construct(SberPayModule $module, $config = [])
+    public function __construct(SberPayModule $module, array $config = [])
     {
         $this->module = $module;
 
