@@ -16,6 +16,16 @@
     "support": {
         "source": "https://gitlab.com/dicr/yii2-sberpay-rest.git"
     },
+    "autoload": {
+        "psr-4": {
+            "dicr\\sberpay\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "dicr\\tests\\": "tests/"
+        }
+    },
     "minimum-stability": "stable",
     "require": {
         "php": "~7.4 || ~8.0.1",
@@ -27,24 +37,14 @@
         "dicr/yii2-helper": "~4.5",
         "dicr/yii2-validate": "~2.3"
     },
-    "autoload": {
-        "psr-4": {
-            "dicr\\sberpay\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "dicr\\tests\\": "tests/"
-        }
+    "require-dev": {
+        "roave/security-advisories": "dev-latest",
+        "phpunit/phpunit": "~9.5"
     },
     "repositories": [
         {"type": "composer", "url": "https://asset-packagist.org"},
         {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-json.git"},
         {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-helper.git"},
         {"type": "gitlab", "url": "https://gitlab.com/dicr/yii2-validate.git"}
-    ],
-    "require-dev": {
-        "roave/security-advisories": "dev-latest",
-        "phpunit/phpunit": "~9.5"
-    }
+    ]
 }
