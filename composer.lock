@@ -285,16 +285,16 @@
         },
         {
             "name": "dicr/yii2-validate",
-            "version": "2.3.10",
+            "version": "2.3.11",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.com/dicr/yii2-validate.git",
-                "reference": "a0738ccda93ed25e978c3c5701c89f0af2f624df"
+                "reference": "76b11914ca259c928bc9dc8774476cdb34ff82a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-validate/repository/archive.zip?sha=a0738ccda93ed25e978c3c5701c89f0af2f624df",
-                "reference": "a0738ccda93ed25e978c3c5701c89f0af2f624df",
+                "url": "https://gitlab.com/api/v4/projects/dicr%2Fyii2-validate/repository/archive.zip?sha=76b11914ca259c928bc9dc8774476cdb34ff82a5",
+                "reference": "76b11914ca259c928bc9dc8774476cdb34ff82a5",
                 "shasum": ""
             },
             "require": {
@@ -338,7 +338,7 @@
                 "source": "https://gitlab.com/dicr/yii2-validate.git",
                 "issues": "https://gitlab.com/api/v4/projects/9711109/issues"
             },
-            "time": "2021-07-31T02:57:56+05:00"
+            "time": "2021-08-14T01:57:00+05:00"
         },
         {
             "name": "ezyang/htmlpurifier",
