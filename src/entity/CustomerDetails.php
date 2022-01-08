@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -19,40 +19,40 @@ use dicr\validate\InnValidator;
  */
 class CustomerDetails extends SberPayEntity
 {
-    /** @var ?string Способ связи с покупателем. */
-    public $contact;
+    /** Способ связи с покупателем. */
+    public ?string $contact = null;
 
     /**
-     * @var string Адрес электронной почты покупателя.
+     * Адрес электронной почты покупателя.
      * Можно указать несколько адресов электронной почты через запятую и без пробелов -
      * в этом случае чек будет отправлен на все указанные адреса.
      */
-    public $email;
+    public ?string $email = null;
 
     /**
-     * @var ?string Номер телефона клиента.
+     * Номер телефона клиента.
      * Если в телефон включён код страны, номер должен начинаться со знака плюс («+»).
      * Если телефон передаётся без знака плюс («+»), то код страны указывать не следует.
      * Допустимое количество цифр: от 7 до 15.
      */
-    public $phone;
+    public ?string $phone = null;
 
-    /** @var ?string Фамилия, имя и отчество плательщика. Строка (до 100 символов) */
-    public $fullName;
+    /** Фамилия, имя и отчество плательщика. Строка (до 100 символов) */
+    public ?string $fullName = null;
 
-    /** @var ?int Серия и номер паспорта плательщика в следующем формате: 2222888888. */
-    public $passport;
+    /** Серия и номер паспорта плательщика в следующем формате: 2222888888. */
+    public ?int $passport = null;
 
-    /** @var ?int Идентификационный номер налогоплательщика. Допускается передавать 10 или 12 символов. */
-    public $inn;
+    /** Идентификационный номер налогоплательщика. Допускается передавать 10 или 12 символов. */
+    public ?int $inn = null;
 
-    /** @var ?DeliveryInfo Блок с атрибутами адреса для доставки. */
-    public $deliveryInfo;
+    /** Блок с атрибутами адреса для доставки. */
+    public DeliveryInfo|array|null $deliveryInfo = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'deliveryInfo' => 'delivery_info'

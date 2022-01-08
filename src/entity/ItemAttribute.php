@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:01:02
  */
 
 declare(strict_types = 1);
@@ -17,106 +17,106 @@ use dicr\sberpay\SberPayEntity;
  */
 class ItemAttribute extends SberPayEntity
 {
-    /** @var int полная предварительная оплата до момента передачи предмета расчёта */
+    /** полная предварительная оплата до момента передачи предмета расчёта */
     public const PAYMENT_FULL_BEFORE = 1;
 
-    /** @var int частичная предварительная оплата до момента передачи предмета расчёта */
+    /** частичная предварительная оплата до момента передачи предмета расчёта */
     public const PAYMENT_PART_BEFORE = 2;
 
-    /** @var int аванс */
+    /** аванс */
     public const PAYMENT_PREPAY = 3;
 
-    /** @var int полная оплата в момент передачи предмета расчёта */
+    /** полная оплата в момент передачи предмета расчёта */
     public const PAYMENT_FULL_AFTER = 4;
 
-    /** @var int частичная оплата предмета расчёта в момент его передачи с последующей оплатой в кредит */
+    /** частичная оплата предмета расчёта в момент его передачи с последующей оплатой в кредит */
     public const PAYMENT_PART_AFTER = 5;
 
-    /** @var int передача предмета расчёта без его оплаты в момент его передачи с последующей оплатой в кредит */
+    /** передача предмета расчёта без его оплаты в момент его передачи с последующей оплатой в кредит */
     public const PAYMENT_NONE_CREDIT = 6;
 
-    /** @var int оплата предмета расчёта после его передачи с оплатой в кредит */
+    /** оплата предмета расчёта после его передачи с оплатой в кредит */
     public const PAYMENT_AFTER_CREDIT = 7;
 
-    /** @var int товар */
+    /** товар */
     public const OBJECT_PRODUCT = 1;
 
-    /** @var int подакцизный товар */
+    /** подакцизный товар */
     public const OBJECT_EXCISABLE_PRODUCT = 2;
 
-    /** @var int работа */
+    /** работа */
     public const OBJECT_WORK = 3;
 
-    /** @var int услуга */
+    /** услуга */
     public const OBJECT_SERVICE = 4;
 
-    /** @var int ставка азартной игры */
+    /** ставка азартной игры */
     public const OBJECT_GAMBLING_RATE = 5;
 
-    /** @var int выигрыш азартной игры */
+    /** выигрыш азартной игры */
     public const OBJECT_GAMBLING_WIN = 6;
 
-    /** @var int лотерейный билет */
+    /** лотерейный билет */
     public const OBJECT_LOTTERY_TICKET = 7;
 
-    /** @var int выигрыш лотереи */
+    /** выигрыш лотереи */
     public const OBJECT_LOTTERY_WIN = 8;
 
-    /** @var int предоставление РИД */
+    /** предоставление РИД */
     public const OBJECT_PROVISION_RIA = 9;
 
-    /** @var int платеж */
+    /** платеж */
     public const OBJECT_PAYMENT = 10;
 
-    /** @var int агентское вознаграждение */
+    /** агентское вознаграждение */
     public const OBJECT_AGENT_COMMISSION = 11;
 
-    /** @var int составной предмет расчёта */
+    /** составной предмет расчёта */
     public const OBJECT_COMPOUND = 12;
 
-    /** @var int иной предмет расчёта */
+    /** иной предмет расчёта */
     public const OBJECT_OTHER = 13;
 
-    /** @var int имущественное право */
+    /** имущественное право */
     public const OBJECT_PROPERTY = 14;
 
-    /** @var int внереализационный доход */
+    /** внереализационный доход */
     public const OBJECT_NON_OPERATING = 15;
 
-    /** @var int страховые взносы */
+    /** страховые взносы */
     public const OBJECT_INSURANCE = 16;
 
-    /** @var int торговый сбор */
+    /** торговый сбор */
     public const OBJECT_TRADE = 17;
 
-    /** @var int курортный сбор */
+    /** курортный сбор */
     public const OBJECT_RESORT = 18;
 
     /**
-     * @var int Тип оплаты (PAYMENT_*)
+     * Тип оплаты (PAYMENT_*)
      * Значением по умолчанию является 1 (полная предварительная оплата до момента передачи предмета расчета).
      */
-    public $paymentMethod;
+    public ?int $paymentMethod = null;
 
-    /** @var int Тип оплачиваемой позиции. Значением по умолчанию является 1 (товар) */
-    public $paymentObject;
+    /** Тип оплачиваемой позиции. Значением по умолчанию является 1 (товар) */
+    public ?int $paymentObject = null;
 
-    /** @var ?string Код товарной позиции в текстовом представлении. Максимальная длина – 32 байта. */
-    public $nomenclature;
+    /** Код товарной позиции в текстовом представлении. Максимальная длина – 32 байта. */
+    public ?string $nomenclature = null;
 
-    /** @var ?string Значение реквизита пользователя. Можно передавать только после согласования с ФНС. */
-    public $userData;
+    /** Значение реквизита пользователя. Можно передавать только после согласования с ФНС. */
+    public ?string $userData = null;
 
-    /** @var ?AgentInfo агент */
-    public $agentInfo;
+    /** агент */
+    public AgentInfo|array|null $agentInfo = null;
 
-    /** @var ?SupplierInfo поставщик */
-    public $supplierInfo;
+    /** поставщик */
+    public SupplierInfo|array|null $supplierInfo = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'agentInfo' => 'agent_info',
@@ -127,7 +127,7 @@ class ItemAttribute extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'agentInfo' => AgentInfo::class,
@@ -138,7 +138,7 @@ class ItemAttribute extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['paymentMethod', 'required'],

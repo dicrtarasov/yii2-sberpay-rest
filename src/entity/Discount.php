@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -16,16 +16,16 @@ use dicr\sberpay\SberPayEntity;
  */
 class Discount extends SberPayEntity
 {
-    /** @var string Тип скидки на товарную позицию. */
-    public $type;
+    /** Тип скидки на товарную позицию. */
+    public ?string $type = null;
 
-    /** @var int Значение скидки на товарную позицию. */
-    public $value;
+    /** Значение скидки на товарную позицию. */
+    public ?int $value = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'type' => 'discountType',

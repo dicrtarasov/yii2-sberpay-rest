@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 17:58:30
  */
 
 declare(strict_types = 1);
@@ -20,22 +20,22 @@ use function round;
 class Item extends SberPayEntity
 {
     /**
-     * @var int Уникальный идентификатор товарной позиции внутри корзины заказа.
+     * Уникальный идентификатор товарной позиции внутри корзины заказа.
      * Номер позиции в списке: 1, 2, 3 ....
      */
-    public $positionId;
+    public ?int $positionId = null;
 
-    /** @var string Наименование или описание товарной позиции в свободной форме. */
-    public $name;
+    /** Наименование или описание товарной позиции в свободной форме. */
+    public ?string $name = null;
 
-    /** @var ?ItemDetails Дополнительный блок с параметрами описания товарной позиции. */
-    public $details;
+    /** Дополнительный блок с параметрами описания товарной позиции. */
+    public ItemDetails|array|null $details = null;
 
-    /** @var Quantity Элемент описывающий общее количество товарных позиций одного positionId и их меру измерения. */
-    public $quantity;
+    /** Элемент описывающий общее количество товарных позиций одного positionId и их меру измерения. */
+    public Quantity|array|null $quantity = null;
 
     /**
-     * @var ?int Сумма стоимости всех товарных позиций одного positionId в минимальных единицах валюты.
+     * Сумма стоимости всех товарных позиций одного positionId в минимальных единицах валюты.
      * itemAmount обязателен к передаче, только если не был передан параметр itemPrice.
      * В противном случае передача itemAmount не требуется.
      * Если же в запросе передаются оба параметра: itemPrice и itemAmount, то itemAmount должен равняться
@@ -44,46 +44,46 @@ class Item extends SberPayEntity
      * десятичного разделителя. Например, если результат вычислений равен 100,255, то итоговый результат
      * будет равен 100,26.
      */
-    public $amount;
+    public ?int $amount = null;
 
-    /** @var ?int Код валюты товарной позиции ISO 4217. Если не указан, считается равным валюте заказа. */
-    public $currency;
+    /** Код валюты товарной позиции ISO 4217. Если не указан, считается равным валюте заказа. */
+    public ?int $currency = null;
 
     /**
-     * @var string Номер (идентификатор) товарной позиции в системе магазина.
+     * Номер (идентификатор) товарной позиции в системе магазина.
      * Параметр должен быть уникальным в рамках запроса.
      */
-    public $code;
+    public ?string $code = null;
 
-    /** @var ?Discount Дополнительный блок с атрибутами описания скидки для товарной позиции. */
-    public $discount;
+    /** Дополнительный блок с атрибутами описания скидки для товарной позиции. */
+    public Discount|array|null $discount = null;
 
-    /** @var ?AgentInterest Дополнительный блок с атрибутами описания агентской комиссии за продажу товара. */
-    public $agentInterest;
+    /** Дополнительный блок с атрибутами описания агентской комиссии за продажу товара. */
+    public AgentInterest|array|null $agentInterest = null;
 
     /**
-     * @var ?Tax Дополнительный тег с атрибутами описания налога.
+     * Дополнительный тег с атрибутами описания налога.
      * Только для магазинов с настройками фискализации.
      */
-    public $tax;
+    public Tax|array|null $tax = null;
 
     /**
-     * @var ?int Стоимость одной товарной позиции в минимальных единицах валюты.
+     * Стоимость одной товарной позиции в минимальных единицах валюты.
      * Только для магазинов с настройками фискализации.
      * Обязательно для продавцов с фискализацией.
      */
-    public $price;
+    public ?int $price = null;
 
     /**
-     * @var ItemAttribute[]|null Блок атрибутов товарной позиции.
+     * @var ItemAttribute[]|array[]|null Блок атрибутов товарной позиции.
      * Только для магазинов с настройками фискализации
      */
-    public $itemAttributes;
+    public ?array $itemAttributes = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'details' => 'itemDetails',
@@ -97,7 +97,7 @@ class Item extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'details' => ItemDetails::class,
@@ -112,7 +112,7 @@ class Item extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['positionId', 'required'],
@@ -160,8 +160,6 @@ class Item extends SberPayEntity
 
     /**
      * Рассчитывает сумму.
-     *
-     * @return ?int
      */
     public function amount(): ?int
     {

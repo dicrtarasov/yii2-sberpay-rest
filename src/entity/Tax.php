@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:07:27
  */
 
 declare(strict_types = 1);
@@ -16,34 +16,34 @@ use dicr\sberpay\SberPayEntity;
  */
 class Tax extends SberPayEntity
 {
-    /** @var int без НДС */
+    /** без НДС */
     public const TYPE_NO_VAT = 0;
 
-    /** @var int НДС по ставке 0% */
+    /** НДС по ставке 0% */
     public const TYPE_VAT0 = 1;
 
-    /** @var int  НДС чека по ставке 10% */
+    /** НДС чека по ставке 10% */
     public const TYPE_VAT10 = 2;
 
-    /** @var int НДС чека по расчетной ставке 10/110 */
+    /** НДС чека по расчетной ставке 10/110 */
     public const TYPE_VAT9 = 4;
 
-    /** @var int НДС чека по ставке 20% */
+    /** НДС чека по ставке 20% */
     public const TYPE_VAT20 = 6;
 
-    /** @var int НДС чека по расчётной ставке 20/120 */
+    /** НДС чека по расчётной ставке 20/120 */
     public const TYPE_VAT16 = 7;
 
-    /** @var ?int Ставка НДС (TYPE_*) */
-    public $type;
+    /** Ставка НДС (TYPE_*) */
+    public ?int $type = null;
 
-    /** @var ?int Сумма налога, высчитанная продавцом. Указывается в минимальных единицах валюты (копейках). */
-    public $sum;
+    /** Сумма налога, высчитанная продавцом. Указывается в минимальных единицах валюты (копейках). */
+    public ?int $sum = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'type' => 'taxType',
@@ -54,7 +54,7 @@ class Tax extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['type', 'default'],

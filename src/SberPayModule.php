@@ -1,21 +1,21 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 08:18:08
+ * @version 08.01.22 18:27:02
  */
 
 declare(strict_types = 1);
 namespace dicr\sberpay;
 
+use Closure;
 use Yii;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
 use yii\httpclient\Client;
 
 use function array_merge;
-use function is_callable;
 
 /**
  * Модуль клиента Сбербанк.
@@ -27,38 +27,39 @@ use function is_callable;
 class SberPayModule extends Module
 {
     /**
-     * @var string URL API для тестов
+     * URL API для тестов
+     *
      * @link https://securepayments.sberbank.ru/wiki/doku.php/test_cards тестовые карты
      */
     public const URL_TEST = 'https://3dsec.sberbank.ru/payment/rest';
 
-    /** @var string URL API */
+    /** URL API */
     public const URL_API = 'https://securepayments.sberbank.ru/payment/rest';
 
-    /** @var string API URL */
-    public $url = self::URL_API;
+    /** API URL */
+    public string $url = self::URL_API;
 
-    /** @var ?string открытый токен (может использоваться вместо логина и пароля) */
-    public $token;
+    /** открытый токен (может использоваться вместо логина и пароля) */
+    public ?string $token = null;
 
-    /** @var ?string логин (*-api) */
-    public $userName;
+    /** логин (*-api) */
+    public ?string $userName = null;
 
-    /** @var ?string пароль */
-    public $password;
+    /** пароль */
+    public ?string $password = null;
 
     /**
-     * @var ?string секретный ключ для проверки callback-уведомлений.
+     * секретный ключ для проверки callback-уведомлений.
      * Если не установлен, то checksum в callback-запросе не проверяются.
      * Реализована только проверка контрольной суммы с использованием СИММЕТРИЧНОЙ криптографии.
      */
-    public $secureToken;
+    public ?string $secureToken = null;
 
-    /** @var ?callable function(CallbackRequest $request): void обработчик callback-запросов */
-    public $handler;
+    /** function(CallbackRequest $request): void обработчик callback-запросов */
+    public ?Closure $handler = null;
 
-    /** @var array конфиг HTTP-клиента */
-    public $httpClientConfig = [];
+    /** конфиг HTTP-клиента */
+    public array $httpClientConfig = [];
 
     /** @inheritDoc */
     public $controllerNamespace = __NAMESPACE__;
@@ -84,24 +85,19 @@ class SberPayModule extends Module
                 throw new InvalidConfigException('password');
             }
         }
-
-        if ($this->handler !== null && ! is_callable($this->handler)) {
-            throw new InvalidConfigException('handler');
-        }
     }
 
-    /** @var Client */
-    private $_httpClient;
+    private Client $_httpClient;
 
     /**
      * HTTP-клиент.
      *
-     * @return Client
      * @throws InvalidConfigException
      */
     public function getHttpClient(): Client
     {
-        if ($this->_httpClient === null) {
+        if (! isset($this->_httpClient)) {
+            /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
             $this->_httpClient = Yii::createObject(array_merge([
                 'class' => Client::class,
             ], $this->httpClientConfig ?: []));
@@ -115,9 +111,6 @@ class SberPayModule extends Module
 
     /**
      * Запрос на создание платежа.
-     *
-     * @param array $config
-     * @return RegisterPaymentRequest
      */
     public function registerPaymentRequest(array $config = []): RegisterPaymentRequest
     {
@@ -126,9 +119,6 @@ class SberPayModule extends Module
 
     /**
      * Запрос состояния платежа.
-     *
-     * @param array $config
-     * @return OrderStatusRequest
      */
     public function orderStatusRequest(array $config = []): OrderStatusRequest
     {

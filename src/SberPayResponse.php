@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:28:14
  */
 
 declare(strict_types = 1);
@@ -14,16 +14,16 @@ namespace dicr\sberpay;
  */
 abstract class SberPayResponse extends SberPayEntity
 {
-    /** @var ?int Код ошибки. Может отсутствовать, если результат не привёл к ошибке. */
-    public $errorCode;
+    /** Код ошибки. Может отсутствовать, если результат не привёл к ошибке. */
+    public ?int $errorCode = null;
 
-    /** @var ?string Описание ошибки на языке, переданном в параметре language в запросе. */
-    public $errorMessage;
+    /** Описание ошибки на языке, переданном в параметре language в запросе. */
+    public ?string $errorMessage = null;
 
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['errorCode', 'default'],

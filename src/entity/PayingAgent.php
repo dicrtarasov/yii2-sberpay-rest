@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -17,16 +17,16 @@ use dicr\sberpay\SberPayEntity;
  */
 class PayingAgent extends SberPayEntity
 {
-    /** @var string Наименование операции платёжного агента. */
-    public $operation;
+    /** Наименование операции платёжного агента. */
+    public ?string $operation = null;
 
-    /** @var string[] Массив телефонов платёжного агента в формате +N. */
-    public $phones;
+    /** @var string[]|null Массив телефонов платёжного агента в формате +N. */
+    public ?array $phones = null;
 
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['operation', 'trim'],

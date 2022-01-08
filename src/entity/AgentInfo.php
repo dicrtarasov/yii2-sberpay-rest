@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -17,43 +17,43 @@ use dicr\sberpay\SberPayEntity;
  */
 class AgentInfo extends SberPayEntity
 {
-    /** @var int банковский платёжный агент */
+    /** банковский платёжный агент */
     public const TYPE_BANK_AGENT = 1;
 
-    /** @var int банковский платёжный субагент */
+    /** банковский платёжный субагент */
     public const TYPE_BANK_SUB_AGENT = 2;
 
-    /** @var int платёжный агент */
+    /** платёжный агент */
     public const TYPE_PAY_AGENT = 3;
 
-    /** @var int платёжный субагент */
+    /** платёжный субагент */
     public const TYPE_PAY_SUB_AGENT = 4;
 
-    /** @var int поверенный */
+    /** поверенный */
     public const TYPE_ATTORNEY = 5;
 
-    /** @var int комиссионер */
+    /** комиссионер */
     public const TYPE_BROKER = 6;
 
-    /** @var int иной агент */
+    /** иной агент */
     public const TYPE_OTHER = 7;
 
-    /** @var int Тип агента */
-    public $type;
+    /** Тип агента */
+    public ?int $type = null;
 
-    /** @var ?PayingAgent платежный агент */
-    public $paying;
+    /** платежный агент */
+    public PayingAgent|array|null $paying = null;
 
-    /** @var ?PaymentsOperator оператор по приему платежей */
-    public $paymentsOperator;
+    /** оператор по приему платежей */
+    public PaymentsOperator|array|null $paymentsOperator = null;
 
-    /** @var ?MTOperator оператор перевода */
-    public $MTOperator;
+    /** оператор перевода */
+    public MTOperator|array|null $MTOperator;
 
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'paying' => PayingAgent::class,

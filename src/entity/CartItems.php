@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 17:52:26
  */
 
 declare(strict_types = 1);
@@ -17,8 +17,8 @@ use dicr\sberpay\SberPayEntity;
  */
 class CartItems extends SberPayEntity
 {
-    /** @var Item[] */
-    public $items;
+    /** @var Item[]|array[] */
+    public array $items = [];
 
     /**
      * @inheritDoc

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:03:36
  */
 
 declare(strict_types = 1);
@@ -18,22 +18,22 @@ use dicr\validate\InnValidator;
  */
 class MTOperator extends SberPayEntity
 {
-    /** @var string Наименование оператора перевода. */
-    public $name;
+    /** Наименование оператора перевода. */
+    public ?string $name = null;
 
     /** @var string[]|null Массив телефонов оператора перевода в формате +N. */
-    public $phones;
+    public ?array $phones = null;
 
-    /** @var ?string Адрес оператора перевода. */
-    public $address;
+    /** Адрес оператора перевода. */
+    public ?string $address = null;
 
-    /** @var ?int ИНН оператора перевода. */
-    public $inn;
+    /** ИНН оператора перевода. */
+    public ?int $inn = null;
 
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['name', 'trim'],

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -19,26 +19,26 @@ use dicr\sberpay\SberPayEntity;
  */
 class ExternalParams extends SberPayEntity
 {
-    /** @var ?string Уникальный идентификатор заказа, сгенерированный Банком. */
-    public $sbolBankInvoiceId;
+    /** Уникальный идентификатор заказа, сгенерированный Банком. */
+    public ?string $sbolBankInvoiceId = null;
 
     /**** Параметры, возвращаемые для схемы app2app ****************************************/
 
-    /** @var ?string Ссылка на приложение Банка для завершения оплаты. */
-    public $sbolDeepLink;
+    /** Ссылка на приложение Банка для завершения оплаты. */
+    public ?string $sbolDeepLink = null;
 
     /**** Параметры, возвращаемые для схемы back2app ****************************************/
 
-    /** @var ?bool Атрибут, информирующий о проходящих регламентных работах */
-    public $sbolInactive;
+    /** Атрибут, информирующий о проходящих регламентных работах */
+    public ?bool $sbolInactive = null;
 
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
-            ['sbolInactive', 'filter', 'filter' => static function ($val) : ?bool {
+            ['sbolInactive', 'filter', 'filter' => static function ($val): ?bool {
                 if ($val === null || $val === '') {
                     return null;
                 }

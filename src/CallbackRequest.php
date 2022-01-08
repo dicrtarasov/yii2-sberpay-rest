@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 08:18:08
+ * @version 08.01.22 18:09:30
  */
 
 declare(strict_types = 1);
@@ -21,49 +21,43 @@ use function strtoupper;
  */
 class CallbackRequest extends SberPayEntity
 {
-    /** @var string операция удержания (холдирования) суммы */
+    /** операция удержания (холдирования) суммы */
     public const OPERATION_APPROVED = 'approved';
 
-    /** @var string операция отклонения заказа по истечении его времени жизни */
+    /** операция отклонения заказа по истечении его времени жизни */
     public const OPERATION_TIMEOUT = 'declinedByTimeout';
 
-    /** @var string операция завершения */
+    /** операция завершения */
     public const OPERATION_DEPOSITED = 'deposited';
 
-    /** @var string операция отмены */
+    /** операция отмены */
     public const OPERATION_REVERSED = 'reversed';
 
-    /** @var string операция возврата */
+    /** операция возврата */
     public const OPERATION_REFUNDED = 'refunded';
 
-    /** @var string Уникальный номер заказа в системе платёжного шлюза. */
-    public $mdOrder;
+    /** Уникальный номер заказа в системе платёжного шлюза. */
+    public ?string $mdOrder = null;
 
-    /** @var string Уникальный номер (идентификатор) заказа в системе продавца. */
-    public $orderNumber;
+    /** Уникальный номер (идентификатор) заказа в системе продавца. */
+    public ?string $orderNumber = null;
 
-    /** @var string Тип операции, о которой пришло уведомление */
-    public $operation;
+    /** Тип операции, о которой пришло уведомление */
+    public ?string $operation = null;
 
-    /** @var bool Индикатор успешности операции, указанной в параметре operation */
-    public $status;
+    /** Индикатор успешности операции, указанной в параметре operation */
+    public ?bool $status = null;
 
-    /** @var ?string Аутентификационный код, или контрольная сумма, полученная из набора параметров. */
-    public $checksum;
-
-    /** @var SberPayModule */
-    private $module;
+    /** Аутентификационный код, или контрольная сумма, полученная из набора параметров. */
+    public ?string $checksum = null;
 
     /**
      * CallbackRequest constructor.
-     *
-     * @param SberPayModule $module
-     * @param array $config
      */
-    public function __construct(SberPayModule $module, array $config = [])
-    {
-        $this->module = $module;
-
+    public function __construct(
+        private SberPayModule $module,
+        array $config = []
+    ) {
         parent::__construct($config);
     }
 
@@ -83,7 +77,7 @@ class CallbackRequest extends SberPayEntity
 
             ['checksum', 'trim'],
             ['checksum', 'required', 'when' => fn(): bool => ! empty($this->module->secureToken)],
-            ['checksum', function(string $attribute): void {
+            ['checksum', function (string $attribute): void {
                 // параметры запроса
                 $get = $_GET;
 
@@ -108,4 +102,3 @@ class CallbackRequest extends SberPayEntity
         ];
     }
 }
-

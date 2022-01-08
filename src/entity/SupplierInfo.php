@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -18,19 +18,19 @@ use dicr\validate\InnValidator;
  */
 class SupplierInfo extends SberPayEntity
 {
-    /** @var string Наименование поставщика. */
-    public $name;
+    /** Наименование поставщика. */
+    public ?string $name = null;
 
     /** @var string[]|null Массив телефонов поставщика в формате +N. */
-    public $phones;
+    public ?array $phones = null;
 
-    /** @var ?int ИНН поставщика. */
-    public $inn;
+    /** ИНН поставщика. */
+    public ?int $inn = null;
 
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['name', 'trim'],

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:45:51
+ * @version 08.01.22 18:29:11
  */
 
 declare(strict_types = 1);
@@ -38,7 +38,7 @@ class SberPayModuleTest extends TestCase
      * @throws Exception
      * @noinspection PhpUnitMissingTargetForTestInspection
      */
-    public function testRegister() : void
+    public function testRegister(): void
     {
         $orderNumber = time();
         $amount = 3982;
@@ -88,8 +88,8 @@ class SberPayModuleTest extends TestCase
         self::assertTrue($req->validate());
 
         $res = $req->send();
-        self::assertSame((int)$res->orderNumber, $orderNumber);
-        self::assertSame($res->amount, $amount);
-        self::assertSame($res->orderStatus, OrderStatusResponse::STATUS_REGISTERED);
+        self::assertSame($orderNumber, (int)$res->orderNumber);
+        self::assertSame($amount, $res->amount);
+        self::assertSame(OrderStatusResponse::STATUS_REGISTERED, $res->orderStatus);
     }
 }

@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:29:48
  */
 
 declare(strict_types = 1);
@@ -17,19 +17,19 @@ use dicr\sberpay\SberPayEntity;
  */
 class OrderBundle extends SberPayEntity
 {
-    /** @var ?string Дата создания заказа в формате YYYY-MM-DD\THH:mm:ss. */
-    public $orderCreationDate;
+    /** Дата создания заказа в формате YYYY-MM-DD\THH:mm:ss. */
+    public ?string $orderCreationDate = null;
 
-    /** @var ?CustomerDetails Блок с атрибутами данных о покупателе. */
-    public $customerDetails;
+    /** Блок с атрибутами данных о покупателе. */
+    public CustomerDetails|array|null $customerDetails = null;
 
-    /** @var CartItems Блок с атрибутами товарных позиции корзины товаров. */
-    public $cartItems;
+    /** Блок с атрибутами товарных позиции корзины товаров. */
+    public CartItems|array|null $cartItems = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'customerDetails' => CustomerDetails::class,

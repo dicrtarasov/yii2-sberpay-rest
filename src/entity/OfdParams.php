@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:03:53
  */
 
 declare(strict_types = 1);
@@ -17,25 +17,25 @@ use dicr\sberpay\SberPayEntity;
  */
 class OfdParams extends SberPayEntity
 {
-    /** @var ?AgentInfo агент */
-    public $agentInfo;
+    /** агент */
+    public AgentInfo|array|null $agentInfo = null;
 
-    /** @var ?SupplierInfo поставщик */
-    public $supplierInfo;
+    /** поставщик */
+    public SupplierInfo|array|null $supplierInfo = null;
 
-    /** @var ?string ФИО кассира. */
-    public $cashier;
+    /** ФИО кассира. */
+    public ?string $cashier = null;
 
-    /** @var ?string Дополнительный реквизит чека. */
-    public $additionalCheckProps;
+    /** Дополнительный реквизит чека. */
+    public ?string $additionalCheckProps = null;
 
-    /** @var UserProps[]|null */
-    public $additionalUserProps;
+    /** @var UserProps[]|array[]|null */
+    public ?array $additionalUserProps = null;
 
     /**
      * @inheritDoc
      */
-    public function attributeFields() : array
+    public function attributeFields(): array
     {
         return [
             'agentInfo' => 'agent_info',
@@ -48,7 +48,7 @@ class OfdParams extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function attributeEntities() : array
+    public function attributeEntities(): array
     {
         return [
             'agentInfo' => AgentInfo::class,
@@ -60,7 +60,7 @@ class OfdParams extends SberPayEntity
     /**
      * @inheritDoc
      */
-    public function rules() : array
+    public function rules(): array
     {
         return [
             ['agentInfo', 'default'],

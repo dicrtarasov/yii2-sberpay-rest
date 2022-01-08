@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 03.07.21 03:50:15
+ * @version 08.01.22 18:27:44
  */
 
 declare(strict_types = 1);
@@ -19,38 +19,27 @@ use yii\httpclient\Client;
  */
 abstract class SberPayRequest extends SberPayEntity
 {
-    /** @var SberPayModule */
-    protected $module;
-
     /**
      * Constructor.
-     *
-     * @param SberPayModule $module
-     * @param array $config
      */
-    public function __construct(SberPayModule $module, array $config = [])
-    {
-        $this->module = $module;
-
+    public function __construct(
+        protected SberPayModule $module,
+        array $config = []
+    ) {
         parent::__construct($config);
     }
 
     /**
      * Адрес запроса.
-     *
-     * @return string
      */
     abstract public function url(): string;
 
     /**
      * Отправляет запрос.
      *
-     * @return array json data
      * @throws Exception
-     * @noinspection PhpMissingReturnTypeInspection
-     * @noinspection ReturnTypeCanBeDeclaredInspection
      */
-    public function send()
+    public function send(): mixed
     {
         if (! $this->validate()) {
             throw new ValidateException($this);

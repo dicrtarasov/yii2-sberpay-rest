@@ -1,9 +1,9 @@
 <?php
 /*
- * @copyright 2019-2021 Dicr http://dicr.org
+ * @copyright 2019-2022 Dicr http://dicr.org
  * @author Igor A Tarasov <develop@dicr.org>
  * @license MIT
- * @version 14.02.21 06:44:32
+ * @version 08.01.22 18:12:59
  */
 
 declare(strict_types = 1);
@@ -18,69 +18,70 @@ namespace dicr\sberpay;
  */
 class OrderStatusResponse extends SberPayResponse
 {
-    /** @var int заказ зарегистрирован, но не оплачен */
+    /** заказ зарегистрирован, но не оплачен */
     public const STATUS_REGISTERED = 0;
 
-    /** @var int предавторизованная сумма удержана (для двухстадийных платежей) */
+    /** предавторизованная сумма удержана (для двухстадийных платежей) */
     public const STATUS_PRE_AUTHORIZED = 1;
 
-    /** @var int проведена полная авторизация суммы заказа */
+    /** проведена полная авторизация суммы заказа */
     public const STATUS_AUTHORIZED = 2;
 
-    /** @var int авторизация отменена */
+    /** авторизация отменена */
     public const STATUS_AUTH_CANCELED = 3;
 
-    /** @var int по транзакции была проведена операция возврата */
+    /** по транзакции была проведена операция возврата */
     public const STATUS_RETURNED = 4;
 
-    /** @var int инициирована авторизация через сервер контроля доступа банка-эмитента */
+    /** инициирована авторизация через сервер контроля доступа банка-эмитента */
     public const STATUS_AUTH_INIT = 5;
 
-    /** @var int авторизация отклонена */
+    /** авторизация отклонена */
     public const STATUS_AUTH_DENIED = 6;
 
-    /** @var string Номер заказа в системе магазина. */
-    public $orderNumber;
+    /** Номер заказа в системе магазина. */
+    public ?string $orderNumber = null;
 
     /**
-     * @var ?int состояние заказа в платёжной системе.
+     * состояние заказа в платёжной системе.
      * Отсутствует, если заказ не был найден.
      */
-    public $orderStatus;
+    public ?int $orderStatus = null;
 
     /**
-     * @var int Код ответа процессинга
+     * Код ответа процессинга
+     *
      * @link https://securepayments.sberbank.ru/wiki/doku.php/integration:api:actioncode
      */
-    public $actionCode;
+    public ?int $actionCode = null;
 
     /**
-     * @var string Коды ответа - цифровое обозначение результата,
+     * Коды ответа - цифровое обозначение результата,
      * к которому привело обращение к системе со стороны пользователя.
      */
-    public $actionCodeDescription;
+    public ?string $actionCodeDescription = null;
 
-    /** @var int Сумма платежа в минимальных единицах валюты. */
-    public $amount;
+    /** Сумма платежа в минимальных единицах валюты. */
+    public ?int $amount = null;
 
-    /** @var ?int Код валюты платежа ISO 4217 */
-    public $currency;
+    /** Код валюты платежа ISO 4217 */
+    public ?int $currency = null;
 
-    /** @var int Дата регистрации заказа в формате UNIX-времени (POSIX-времени). */
-    public $date;
+    /** Дата регистрации заказа в формате UNIX-времени (POSIX-времени). */
+    public ?int $date = null;
 
-    /** @var ?string Описание заказа в свободной форме. */
-    public $orderDescription;
+    /** Описание заказа в свободной форме. */
+    public ?string $orderDescription = null;
 
-    /** @var string IP-адрес покупателя. IPv6 поддерживается во всех запросах (до 39 символов). */
-    public $ip;
+    /** IP-адрес покупателя. IPv6 поддерживается во всех запросах (до 39 символов). */
+    public ?string $ip = null;
 
-    /** @var ?string Учётный номер авторизации платежа, который присваивается при регистрации платежа. */
-    public $authRefNum;
+    /** Учётный номер авторизации платежа, который присваивается при регистрации платежа. */
+    public ?string $authRefNum = null;
 
-    /** @var ?string Дата и время возврата средств. */
-    public $refundedDate;
+    /** Дата и время возврата средств. */
+    public ?string $refundedDate = null;
 
-    /** @var ?string Способ совершения платежа (платёж в с вводом карточных данных, оплата по связке и т. п.). */
-    public $paymentWay;
+    /** Способ совершения платежа (платёж в с вводом карточных данных, оплата по связке и т. п.). */
+    public ?string $paymentWay = null;
 }
